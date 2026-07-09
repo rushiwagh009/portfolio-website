@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -607,84 +607,11 @@
               </div>
             </div>
 
-            <!-- Interactive Diagram Column -->
+            <!-- Architecture Diagram Column -->
             <div class="featured-right">
-              <h4 class="diagram-heading">Interactive Deployment Flow</h4>
+              <h4 class="diagram-heading">Deployment Architecture</h4>
               <div class="interactive-diagram-container">
-                <!-- Inline SVG Diagram -->
-                <svg id="eks-svg-diagram" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Definitions for arrows and markers -->
-                  <defs>
-                    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                      <path d="M 0 0 L 10 5 L 0 10 z" fill="#06B6D4" />
-                    </marker>
-                    <radialGradient id="node-glow" cx="50%" cy="50%" r="50%">
-                      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.3"/>
-                      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0"/>
-                    </radialGradient>
-                  </defs>
-
-                  <!-- Network Boundaries / VPC -->
-                  <rect x="10" y="40" width="380" height="260" rx="10" fill="rgba(15, 23, 42, 0.6)" stroke="rgba(6, 182, 212, 0.2)" stroke-width="1.5" />
-                  <text x="20" y="58" fill="#64748B" font-size="10" font-family="Fira Code">AWS VPC (Multi-AZ)</text>
-
-                  <!-- Connecting Paths -->
-                  <path d="M 200 30 L 200 80" stroke="#06B6D4" stroke-width="1.5" stroke-dasharray="4" marker-end="url(#arrow)" />
-                  <path d="M 200 120 L 120 180" stroke="#06B6D4" stroke-width="1.2" marker-end="url(#arrow)" />
-                  <path d="M 200 120 L 280 180" stroke="#06B6D4" stroke-width="1.2" marker-end="url(#arrow)" />
-                  
-                  <path d="M 120 220 L 120 260" stroke="#06B6D4" stroke-width="1" stroke-dasharray="2" marker-end="url(#arrow)" />
-                  <path d="M 280 220 L 280 260" stroke="#06B6D4" stroke-width="1" stroke-dasharray="2" marker-end="url(#arrow)" />
-
-                  <!-- Nodes (Interactive Elements) -->
-                  <!-- User Traffic -->
-                  <g class="dia-node" id="dia-users">
-                    <circle cx="200" cy="20" r="18" fill="#020617" stroke="#06B6D4" stroke-width="2" />
-                    <text x="200" y="23" fill="#F8FAFC" font-size="9" text-anchor="middle" font-family="Inter">User</text>
-                  </g>
-
-                  <!-- Ingress Load Balancer -->
-                  <g class="dia-node" id="dia-alb" data-info="AWS Application Load Balancer distributes user requests securely across redundant AZ systems.">
-                    <rect x="150" y="80" width="100" height="40" rx="6" fill="#0F172A" stroke="#06B6D4" stroke-width="2" />
-                    <text x="200" y="98" fill="#F8FAFC" font-size="10" font-weight="600" text-anchor="middle" font-family="Inter">AWS ALB / NLB</text>
-                    <text x="200" y="112" fill="#64748B" font-size="8" text-anchor="middle" font-family="Fira Code">Route 53</text>
-                  </g>
-
-                  <!-- Zone A: Node -->
-                  <g class="dia-node" id="dia-eks-aza" data-info="Availability Zone A: Hosts EKS Node Groups with pods running Prometheus agent, internal routes.">
-                    <rect x="60" y="170" width="120" height="50" rx="6" fill="#0F172A" stroke="#0891B2" stroke-width="1.5" />
-                    <text x="120" y="188" fill="#F8FAFC" font-size="10" font-weight="600" text-anchor="middle" font-family="Inter">EKS Pods - AZ A</text>
-                    <text x="120" y="202" fill="#06B6D4" font-size="8" text-anchor="middle" font-family="Fira Code">Microservices (3)</text>
-                    <text x="120" y="212" fill="#64748B" font-size="7" text-anchor="middle" font-family="Fira Code">Uptime: 99.9%</text>
-                  </g>
-
-                  <!-- Zone B: Node -->
-                  <g class="dia-node" id="dia-eks-azb" data-info="Availability Zone B: Parallel node pool ensuring complete service replication and high availability.">
-                    <rect x="220" y="170" width="120" height="50" rx="6" fill="#0F172A" stroke="#0891B2" stroke-width="1.5" />
-                    <text x="280" y="188" fill="#F8FAFC" font-size="10" font-weight="600" text-anchor="middle" font-family="Inter">EKS Pods - AZ B</text>
-                    <text x="280" y="202" fill="#06B6D4" font-size="8" text-anchor="middle" font-family="Fira Code">Microservices (4)</text>
-                    <text x="280" y="212" fill="#64748B" font-size="7" text-anchor="middle" font-family="Fira Code">Replicated Active</text>
-                  </g>
-
-                  <!-- S3 / Velero Backup Storage -->
-                  <g class="dia-node" id="dia-s3" data-info="Secure S3 Bucket storing automated Velero backups, DB dumps, and Prometheus metrics retention.">
-                    <rect x="60" y="250" width="120" height="40" rx="6" fill="#0F172A" stroke="#22C55E" stroke-width="1.5" />
-                    <text x="120" y="268" fill="#F8FAFC" font-size="10" font-weight="500" text-anchor="middle" font-family="Inter">AWS S3 / RDS</text>
-                    <text x="120" y="280" fill="#22C55E" font-size="8" text-anchor="middle" font-family="Fira Code">Velero / Multi-AZ DB</text>
-                  </g>
-
-                  <!-- Prometheus Observability -->
-                  <g class="dia-node" id="dia-mon" data-info="Monitoring stack collecting active metrics and Loki tracking logs across all pods and systems.">
-                    <rect x="220" y="250" width="120" height="40" rx="6" fill="#0F172A" stroke="#22C55E" stroke-width="1.5" />
-                    <text x="280" y="268" fill="#F8FAFC" font-size="10" font-weight="500" text-anchor="middle" font-family="Inter">Loki + Grafana</text>
-                    <text x="280" y="280" fill="#22C55E" font-size="8" text-anchor="middle" font-family="Fira Code">Prometheus Collector</text>
-                  </g>
-                </svg>
-                
-                <!-- Information Panel -->
-                <div class="diagram-info-panel" id="diagram-info-text">
-                  Hover over the diagram components above to check configuration configurations and details!
-                </div>
+                <img src="assets/3tier-arch-web" alt="Multi-AZ Kubernetes Platform Architecture" style="width: 100%; border-radius: 8px;">
               </div>
             </div>
           </div>
@@ -1149,11 +1076,13 @@
         <!-- Cert 1 -->
         <div class="cert-card card">
           <div class="cert-badge-img-wrap">
-            <img src="assets/AWS Certified Solution Architect - Associate-logo.png" alt="AWS Certified Solutions Architect – Associate Badge" class="cert-badge-img">
+            <a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer">
+              <img src="assets/AWS Certified Solution Architect - Associate-logo.png" alt="AWS Certified Solutions Architect – Associate Badge" class="cert-badge-img">
+            </a>
           </div>
           <div class="cert-card-body">
             <span class="cert-verified">✓ VERIFIED</span>
-            <h3>AWS Certified Solutions Architect – Associate</h3>
+            <h3><a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">AWS Certified Solutions Architect – Associate</a></h3>
             <p class="cert-issuer">Amazon Web Services</p>
             <p class="cert-date">Issued: May 24, 2026</p>
           </div>
@@ -1162,11 +1091,13 @@
         <!-- Cert 2 -->
         <div class="cert-card card">
           <div class="cert-badge-img-wrap">
-            <img src="assets/AWS certified Cloud Practitioner-logo.png" alt="AWS Certified Cloud Practitioner Badge" class="cert-badge-img">
+            <a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer">
+              <img src="assets/AWS certified Cloud Practitioner-logo.png" alt="AWS Certified Cloud Practitioner Badge" class="cert-badge-img">
+            </a>
           </div>
           <div class="cert-card-body">
             <span class="cert-verified">✓ VERIFIED</span>
-            <h3>AWS Certified Cloud Practitioner</h3>
+            <h3><a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">AWS Certified Cloud Practitioner</a></h3>
             <p class="cert-issuer">Amazon Web Services</p>
             <p class="cert-date">Issued: September 10, 2025</p>
           </div>
@@ -1175,11 +1106,13 @@
         <!-- Cert 3 -->
         <div class="cert-card card">
           <div class="cert-badge-img-wrap">
-            <img src="assets/AWS Partner Sales Accreditation - training Badge.png" alt="AWS Partner Sales Accreditation Badge" class="cert-badge-img">
+            <a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer">
+              <img src="assets/AWS Partner Sales Accreditation - training Badge.png" alt="AWS Partner Sales Accreditation Badge" class="cert-badge-img">
+            </a>
           </div>
           <div class="cert-card-body">
             <span class="cert-verified">✓ VERIFIED</span>
-            <h3>AWS Partner: Sales Accreditation</h3>
+            <h3><a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">AWS Partner: Sales Accreditation</a></h3>
             <p class="cert-issuer">Amazon Web Services</p>
             <p class="cert-date">Issued: June 16, 2025</p>
           </div>
@@ -1188,11 +1121,13 @@
         <!-- Cert 4 -->
         <div class="cert-card card">
           <div class="cert-badge-img-wrap">
-            <img src="assets/AWS Partner Technical Accreditation - training Badge.png" alt="AWS Partner Technical Accreditation Badge" class="cert-badge-img">
+            <a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer">
+              <img src="assets/AWS Partner Technical Accreditation - training Badge.png" alt="AWS Partner Technical Accreditation Badge" class="cert-badge-img">
+            </a>
           </div>
           <div class="cert-card-body">
             <span class="cert-verified">✓ VERIFIED</span>
-            <h3>AWS Partner: Technical Accreditation</h3>
+            <h3><a href="https://skillsprofile.skillbuilder.aws/user/RushiWagh/certification-badges" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;">AWS Partner: Technical Accreditation</a></h3>
             <p class="cert-issuer">Amazon Web Services</p>
             <p class="cert-date">Issued: June 16, 2025</p>
           </div>
