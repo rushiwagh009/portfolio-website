@@ -396,37 +396,77 @@ function initBlogSearch() {
 }
 
 /* ==========================================================================
-   9. CONTACT FORM INTERACTIVE HANDLER WITH TOASTS
+   9. CONTACT FORM INTERACTIVE HANDLER WITH TOASTS (FETCH)
    ========================================================================== */
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
+  
+  // TO DO: Replace this with your actual Lambda Function URL after deployment
+  const LAMBDA_URL = "YOUR_LAMBDA_FUNCTION_URL_HERE";
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('form-name').value;
-    const email = document.getElementById('form-email').value;
-    const service = document.getElementById('form-service').value;
+    const name = document.getElementById('form-name').value.trim();
+    const email = document.getElementById('form-email').value.trim();
+    const service = document.getElementById('form-service').value.trim();
+    const budget = document.getElementById('form-budget') ? document.getElementById('form-budget').value : '';
+    const message = document.getElementById('form-message').value.trim();
 
-    if (!name || !email || !service) {
+    if (!name || !email || !service || !message) {
       showToast("Please fill in all required fields.", "error");
       return;
     }
 
-    // Submit animation simulation
+    const payload = {
+      name: name,
+      email: email,
+      service: service,
+      budget: budget,
+      message: message
+    };
+
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
-    submitBtn.textContent = "Processing Connection...";
+    submitBtn.innerHTML = '<span class="pulse-dot"></span> Sending Request...';
+    
+    // Fallback if URL is not configured
+    if (LAMBDA_URL === "YOUR_LAMBDA_FUNCTION_URL_HERE") {
+      setTimeout(() => {
+        showToast("Lambda URL not configured yet. Form simulation successful.", "success");
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }, 1500);
+      return;
+    }
 
-    setTimeout(() => {
-      // Success simulation
-      showToast(`Thanks ${name}! Your consultation request has been received.`, "success");
-      form.reset();
+    try {
+      const response = await fetch(LAMBDA_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+      
+      const jsonResponse = await response.json();
+      
+      if (response.ok && jsonResponse.success) {
+        showToast(jsonResponse.message || `Thanks ${name}! Your consultation request has been received.`, "success");
+        form.reset();
+      } else {
+        showToast(jsonResponse.message || "Something went wrong. Please try again.", "error");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      showToast("Network error. Could not submit request.", "error");
+    } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = originalText;
-    }, 1500);
+    }
   });
 }
 
