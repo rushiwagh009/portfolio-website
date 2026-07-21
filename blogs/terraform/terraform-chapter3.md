@@ -208,7 +208,7 @@ The same principle was applied across the repository.
 | Ingress             | `lbc.tf`       |
 | Security            | `security.tf`  |
 
-![[.\assets\terraform-chapter-3.png.png]]
+![[.\assets\terraform-chapter3.png]]
 
 This organization reflects **how engineers think**, rather than how AWS categorizes services.
 
