@@ -290,6 +290,15 @@
         
         let markdownContent = await response.text();
 
+        // Handle Obsidian-style image embeds: ![[path/to/image.ext]]
+        // Convert to a proper <img> tag before processing generic wiki links
+        markdownContent = markdownContent.replace(/!\[\[(.*?)\]\]/g, (match, p1) => {
+          // Normalize path: replace backslashes, strip leading ./ or .\
+          let imgPath = p1.replace(/\\/g, '/').replace(/^\.\//, '');
+          // If path starts with assets/ or similar, serve from site root
+          return `<img src="${imgPath}" alt="diagram" style="max-width:100%;border-radius:0.5rem;border:1px solid var(--border);margin:1.5rem 0;" />`;
+        });
+
         // Handle Obsidian-style Wiki Links: [[Link]]
         // Example: [[Chapter 2 - From Monolithic Terraform...]] -> simple span or styled text
         markdownContent = markdownContent.replace(/\[\[(.*?)\]\]/g, (match, p1) => {
