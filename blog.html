@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Rushi Wagh | Technical Blog</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Highlight.js for Code Highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  
+  <!-- Custom Blog Styles -->
+  <style>
+    .blog-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 120px 1.5rem 60px;
+      min-height: 80vh;
+    }
+    
+    .blog-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .back-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* Markdown content styles */
+    .markdown-body {
+      color: var(--text-secondary);
+      font-size: 1.125rem;
+      line-height: 1.8;
+    }
+
+    .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+      color: var(--text-primary);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .markdown-body h1 {
+      font-size: 2.5rem; 
+      margin-top: 1rem;
+    }
+    .markdown-body h2 { font-size: 1.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .markdown-body h3 { font-size: 1.5rem; }
+
+    .markdown-body p, .markdown-body ul, .markdown-body ol {
+      margin-bottom: 1.25rem;
+    }
+
+    .markdown-body ul, .markdown-body ol {
+      padding-left: 2rem;
+    }
+    .markdown-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .markdown-body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .markdown-body a:hover {
+      color: var(--accent-dark);
+    }
+
+    .markdown-body blockquote {
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+      color: var(--text-muted);
+      margin-left: 0;
+      background: var(--bg-tertiary);
+      padding: 1rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      font-style: italic;
+    }
+
+    .markdown-body pre {
+      background: #0d1117;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .markdown-body code {
+      font-family: var(--font-mono);
+      background: rgba(110, 118, 129, 0.1);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-size: 85%;
+    }
+
+    .markdown-body pre code {
+      background: transparent;
+      padding: 0;
+      font-size: 0.875rem;
+    }
+
+    .markdown-body table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+    
+    .markdown-body th, .markdown-body td {
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+    
+    .markdown-body th {
+      background: var(--bg-tertiary);
+    }
+    
+    .markdown-body img {
+      max-width: 100%;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .loading-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 0;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-radius: 50%;
+      border-top-color: var(--accent);
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 1rem;
+    }
+
+    .error-state {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    
+    .error-state h2 {
+      color: var(--danger);
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Top Glassmorphism Navigation Bar -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html#hero" class="logo">RW<span class="text-accent">.</span></a>
+      
+      <nav class="nav-menu" id="nav-menu">
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#projects" class="nav-link">Projects</a>
+        <a href="index.html#skills" class="nav-link">Skills</a>
+        <a href="index.html#experience" class="nav-link">Experience</a>
+        <a href="index.html#certifications" class="nav-link">Certifications</a>
+        <a href="index.html#blog" class="nav-link active">Blog</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light/Dark Mode">
+          <!-- Moon Icon (Visible in dark mode) -->
+          <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <!-- Sun Icon (Visible in light mode) -->
+          <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Open Navigation Menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Blog Reader Container -->
+  <main class="blog-container">
+    <a href="index.html#blog" class="back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Back to Portfolio
+    </a>
+
+    <div id="blog-content-area">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading insight...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <a href="index.html#hero" class="logo">RW<span class="text-accent">.</span></a>
+        <p class="footer-title">Rushi Wagh</p>
+        <p class="footer-subtitle">AWS DevOps Consultant</p>
+      </div>
+      <div class="footer-right">
+        <p>© <span id="footer-year">2026</span> Rushi Wagh. All rights reserved.</p>
+        <p class="footer-signature">Built with passion for cloud automation</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  
+  <!-- CDN Dependencies for Markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <!-- Blog Rendering Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const topic = urlParams.get('topic');
+      const post = urlParams.get('post');
+      
+      const contentArea = document.getElementById('blog-content-area');
+
+      if (!topic || !post) {
+        showError('Invalid Article URL. Missing topic or post identifiers.');
+        return;
+      }
+
+      const filePath = `./blogs/${topic}/${post}.md`;
+
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+          throw new Error('Post not found');
+        }
+        
+        let markdownContent = await response.text();
+
+        // Handle Obsidian-style Wiki Links: [[Link]]
+        // Example: [[Chapter 2 - From Monolithic Terraform...]] -> simple span or styled text
+        markdownContent = markdownContent.replace(/\[\[(.*?)\]\]/g, (match, p1) => {
+          return `<span class="tag bg-cyan-glow" style="cursor: pointer;" title="Wiki link representation">${p1}</span>`;
+        });
+
+        // Parse Markdown to HTML
+        const rawHtml = marked.parse(markdownContent);
+        
+        // Inject into DOM
+        contentArea.innerHTML = `<div class="markdown-body">${rawHtml}</div>`;
+        
+        // Highlight Code Blocks
+        document.querySelectorAll('pre code').forEach((block) => {
+          // If it's a mermaid block, let mermaid handle it
+          if (block.classList.contains('language-mermaid')) {
+             return;
+          }
+          hljs.highlightElement(block);
+        });
+
+        // Render Mermaid Diagrams
+        const mermaidBlocks = document.querySelectorAll('.language-mermaid');
+        if (mermaidBlocks.length > 0) {
+          try {
+             mermaidBlocks.forEach((block, index) => {
+               const source = block.textContent;
+               const container = document.createElement('div');
+               container.id = `mermaid-${index}`;
+               container.style.textAlign = 'center';
+               block.parentElement.parentElement.insertBefore(container, block.parentElement);
+               block.parentElement.style.display = 'none'; // hide original pre block
+               
+               mermaid.render(`mermaid-svg-${index}`, source).then(result => {
+                 container.innerHTML = result.svg;
+               });
+             });
+          } catch (e) {
+             console.error("Mermaid parsing failed", e);
+          }
+        }
+        
+        // Update document title up to first top header if possible
+        const h1 = contentArea.querySelector('h1');
+        if (h1) {
+          document.title = `${h1.textContent} | Rushi Wagh`;
+        }
+
+      } catch (error) {
+        console.error('Failed to load markdown', error);
+        
+        let errorMessage = 'Article could not be loaded. It may have been moved or deleted.';
+        
+        // Check if user is running via file:// protocol
+        if (window.location.protocol === 'file:') {
+          errorMessage = 'Browsers block loading local files (fetch) due to security restrictions when using the <code>file://</code> protocol. Please use a local web server (e.g., Live Server extension, <code>python -m http.server</code>, or <code>npx serve</code>) to view the blog locally.';
+        }
+        
+        showError(errorMessage);
+      }
+
+      function showError(message) {
+        contentArea.innerHTML = `
+          <div class="error-state">
+            <h2>ERR_FILE_NOT_FOUND</h2>
+            <p>${message}</p>
+            <br/>
+            <a href="index.html#blog" class="btn btn-primary">Return to Blog Grid</a>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
