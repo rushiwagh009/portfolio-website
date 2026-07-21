@@ -1,4 +1,4 @@
-# Chapter 5: Designing Clean Module Interfaces with Variables, Locals, Outputs, and Dependencies (Part 1)
+# Chapter 5: Designing Clean Module Interfaces with Variables, Locals, Outputs, and Dependencies
 
 > _"Good Terraform modules are not defined by the number of resources they create. They are defined by the simplicity, stability, and clarity of the interfaces they expose."_
 
