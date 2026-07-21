@@ -130,6 +130,8 @@ If adding a single resource requires understanding the entire infrastructure, th
 
 # Thinking Like a Platform Engineer
 
+![[.\assets\terraform-chapter-2.png.png]]
+
 Instead of asking:
 
 > "How should we organize Terraform files?"

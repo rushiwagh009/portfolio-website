@@ -66,6 +66,7 @@ Unfortunately, infrastructure rarely stays this simple.
 
 # The Turning Point
 
+![[.\assets\terraform-chapter1.png.png]]
 As the platform matured, infrastructure requirements expanded far beyond the original scope.
 
 New AWS services needed to be introduced.
