@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initBlogSearch();
   initContactForm();
   updateFooterYear();
+  initHeroRotator();
+  initCardTilt();
+  initMetricCounters();
+  initButtonRipple();
 });
 
 /* ==========================================================================
@@ -102,6 +106,7 @@ function initMobileMenu() {
     e.stopPropagation();
     hamburgerBtn.classList.toggle('active');
     navMenu.classList.toggle('active');
+    document.body.classList.toggle('nav-open');
   });
 
   // Close menu when clicking links
@@ -109,6 +114,7 @@ function initMobileMenu() {
     link.addEventListener('click', () => {
       hamburgerBtn.classList.remove('active');
       navMenu.classList.remove('active');
+      document.body.classList.remove('nav-open');
     });
   });
 
@@ -117,6 +123,7 @@ function initMobileMenu() {
     if (!navMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
       hamburgerBtn.classList.remove('active');
       navMenu.classList.remove('active');
+      document.body.classList.remove('nav-open');
     }
   });
 }
@@ -471,7 +478,169 @@ function initContactForm() {
 }
 
 /* ==========================================================================
-   10. TOAST NOTIFICATION ENGINE
+   10. HERO ROTATING SPECIALTY TYPEWRITER
+   ========================================================================== */
+function initHeroRotator() {
+  const el = document.getElementById('hero-rotator');
+  if (!el) return;
+
+  const words = [
+    "Kubernetes Specialist",
+    "Terraform Automation Expert",
+    "AWS Cost Optimizer (FinOps)",
+    "CI/CD Pipeline Architect",
+    "DevSecOps Engineer"
+  ];
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) {
+    el.textContent = words[0];
+    return;
+  }
+
+  let wordIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  const typingSpeed = 55;
+  const deletingSpeed = 28;
+  const holdTime = 1700;
+  const gapTime = 400;
+
+  function tick() {
+    const currentWord = words[wordIndex];
+
+    if (!deleting) {
+      charIndex++;
+      el.textContent = currentWord.slice(0, charIndex);
+
+      if (charIndex === currentWord.length) {
+        deleting = true;
+        setTimeout(tick, holdTime);
+        return;
+      }
+      setTimeout(tick, typingSpeed + Math.random() * 40);
+    } else {
+      charIndex--;
+      el.textContent = currentWord.slice(0, charIndex);
+
+      if (charIndex === 0) {
+        deleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(tick, gapTime);
+        return;
+      }
+      setTimeout(tick, deletingSpeed);
+    }
+  }
+
+  el.textContent = '';
+  setTimeout(tick, 900);
+}
+
+/* ==========================================================================
+   11. CURSOR-REACTIVE CARD TILT & SPOTLIGHT
+   ========================================================================== */
+function initCardTilt() {
+  const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!supportsFinePointer || reducedMotion) return;
+
+  const maxTilt = 6; // degrees
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const percentX = (x / rect.width) * 100;
+      const percentY = (y / rect.height) * 100;
+      const rotateY = ((x / rect.width) - 0.5) * maxTilt * 2;
+      const rotateX = ((y / rect.height) - 0.5) * -maxTilt * 2;
+
+      card.style.setProperty('--mx', `${percentX}%`);
+      card.style.setProperty('--my', `${percentY}%`);
+      card.style.transform = `translateY(-4px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
+
+/* ==========================================================================
+   12. ANIMATED HERO METRIC COUNTERS
+   ========================================================================== */
+function initMetricCounters() {
+  const metrics = document.querySelectorAll('.hero-metrics .metric-value');
+  if (!metrics.length) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function animateMetric(el) {
+    const raw = el.textContent.trim();
+    const match = raw.match(/^([\d.]+)(.*)$/);
+    if (!match || reducedMotion) return;
+
+    const target = parseFloat(match[1]);
+    const suffix = match[2];
+    const isInteger = Number.isInteger(target);
+    const duration = 1400;
+    const start = performance.now();
+
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = target * eased;
+      el.textContent = `${isInteger ? Math.round(current) : current.toFixed(1)}${suffix}`;
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        el.textContent = raw;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateMetric(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  metrics.forEach(metric => counterObserver.observe(metric));
+}
+
+/* ==========================================================================
+   13. BUTTON RIPPLE MICRO-INTERACTION
+   ========================================================================== */
+function initButtonRipple() {
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const ripple = document.createElement('span');
+
+      ripple.className = 'btn-ripple';
+      ripple.style.width = `${size}px`;
+      ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 650);
+    });
+  });
+}
+
+/* ==========================================================================
+   14. TOAST NOTIFICATION ENGINE
    ========================================================================== */
 function showToast(message, type = 'info') {
   const container = document.getElementById('toast-container');
@@ -494,7 +663,7 @@ function showToast(message, type = 'info') {
 }
 
 /* ==========================================================================
-   11. AUTOMATED FOOTER YEAR SETTING
+   15. AUTOMATED FOOTER YEAR SETTING
    ========================================================================== */
 function updateFooterYear() {
   const yearSpan = document.getElementById('footer-year');

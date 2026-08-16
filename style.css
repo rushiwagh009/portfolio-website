@@ -69,6 +69,57 @@ body {
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
+/* Custom text selection & scrollbar for a more polished, branded feel */
+::selection {
+  background-color: var(--accent);
+  color: #020617;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-secondary);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-dark);
+  border-radius: 6px;
+  border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent);
+}
+
+/* Mobile nav dimming overlay */
+body.nav-open::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -102,6 +153,46 @@ img {
 
 .bg-secondary {
   background-color: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient drifting gradient blobs for visual depth on secondary sections */
+.bg-secondary::before,
+.bg-secondary::after {
+  content: '';
+  position: absolute;
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-secondary::before {
+  top: -10%;
+  left: -8%;
+  background: var(--accent);
+  animation: blobDrift 18s ease-in-out infinite;
+}
+
+.bg-secondary::after {
+  bottom: -15%;
+  right: -8%;
+  background: #3b82f6;
+  animation: blobDrift 22s ease-in-out infinite reverse;
+}
+
+.bg-secondary > .container {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes blobDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.15); }
 }
 
 /* Section Header styling */
@@ -120,9 +211,28 @@ img {
 }
 
 .section-title {
+  position: relative;
+  display: inline-block;
   font-size: 2.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
+  padding-bottom: 0.75rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, #3b82f6 100%);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.section-header.reveal-visible .section-title::after {
+  width: 70px;
 }
 
 .subsection-title {
@@ -143,6 +253,24 @@ img {
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  animation: rippleEffect 0.6s ease-out forwards;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
 }
 
 .btn-primary {
@@ -214,9 +342,11 @@ img {
   position: relative;
   overflow: hidden;
   transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-/* Card hover lift */
+/* Card hover lift (fallback for non-JS / touch; JS tilt overrides via inline transform on pointer-fine devices) */
 .card:hover {
   transform: translateY(-4px);
   border-color: var(--border-hover);
@@ -235,10 +365,32 @@ img {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition-normal);
+  z-index: 2;
 }
 
 .card:hover::before {
   transform: scaleX(1);
+}
+
+/* Cursor-tracking spotlight glow, position driven by JS via --mx / --my custom properties */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), var(--accent-glow), transparent 65%);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+.card > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* ==========================================================================
@@ -372,13 +524,32 @@ body[data-theme="light"] .header {
 }
 
 .nav-link {
+  position: relative;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-secondary);
+  padding-bottom: 4px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent) 0%, #3b82f6 100%);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--transition-normal);
 }
 
 .nav-link:hover, .nav-link.active {
   color: var(--accent);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  transform: scaleX(1);
 }
 
 .nav-actions {
@@ -529,6 +700,35 @@ body[data-theme="light"] .icon-moon { display: none; }
   max-width: 540px;
 }
 
+.hero-rotator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  min-height: 1.5em;
+}
+
+.rotator-prefix {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.rotator-text {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.rotator-cursor {
+  color: var(--accent);
+  font-weight: 700;
+  animation: blinkCursor 1s step-end infinite;
+}
+
+@keyframes blinkCursor {
+  50% { opacity: 0; }
+}
+
 .hero-metrics {
   display: flex;
   gap: 2rem;
@@ -628,11 +828,18 @@ body[data-theme="light"] .icon-moon { display: none; }
 .floating-badge.top-right {
   top: 16px;
   right: -90px;
+  animation: floatBadge 4s ease-in-out infinite;
 }
 
 .floating-badge.bottom-left {
   bottom: 40px;
   left: -120px;
+  animation: floatBadge 4.5s ease-in-out infinite 0.5s;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 .badge-icon {
@@ -715,6 +922,10 @@ body[data-theme="light"] .icon-moon { display: none; }
   gap: 2rem;
   width: max-content;
   animation: marquee 25s linear infinite;
+}
+
+.marquee-container:hover .marquee-track {
+  animation-play-state: paused;
 }
 
 .tech-chip {
@@ -2078,6 +2289,7 @@ body[data-theme="light"] .icon-moon { display: none; }
 .hero-left .animate-fade-up:nth-child(3) { animation-delay: 0.3s; }
 .hero-left .animate-fade-up:nth-child(4) { animation-delay: 0.4s; }
 .hero-left .animate-fade-up:nth-child(5) { animation-delay: 0.5s; }
+.hero-left .animate-fade-up:nth-child(6) { animation-delay: 0.6s; }
 
 .hero-right .animate-fade-in { animation-delay: 0.3s; }
 .hero-right .animate-fade-up { animation-delay: 0.6s; }
@@ -2101,6 +2313,50 @@ body[data-theme="light"] .icon-moon { display: none; }
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Staggered cascade delays for cards inside grid layouts */
+.services-grid .card:nth-child(1),
+.projects-grid > .card:nth-child(1),
+.differentiators-grid .card:nth-child(1),
+.certs-grid .card:nth-child(1),
+.blog-grid .card:nth-child(1),
+.speaking-grid .card:nth-child(1) { transition-delay: 0s; }
+
+.services-grid .card:nth-child(2),
+.projects-grid > .card:nth-child(2),
+.differentiators-grid .card:nth-child(2),
+.certs-grid .card:nth-child(2),
+.blog-grid .card:nth-child(2),
+.speaking-grid .card:nth-child(2) { transition-delay: 0.08s; }
+
+.services-grid .card:nth-child(3),
+.projects-grid > .card:nth-child(3),
+.differentiators-grid .card:nth-child(3),
+.certs-grid .card:nth-child(3),
+.blog-grid .card:nth-child(3),
+.speaking-grid .card:nth-child(3) { transition-delay: 0.16s; }
+
+.services-grid .card:nth-child(4),
+.projects-grid > .card:nth-child(4),
+.differentiators-grid .card:nth-child(4),
+.blog-grid .card:nth-child(4) { transition-delay: 0.24s; }
+
+.services-grid .card:nth-child(5),
+.projects-grid > .card:nth-child(5),
+.differentiators-grid .card:nth-child(5),
+.blog-grid .card:nth-child(5) { transition-delay: 0.32s; }
+
+.services-grid .card:nth-child(6),
+.differentiators-grid .card:nth-child(6) { transition-delay: 0.4s; }
+
+.services-grid .card:nth-child(n+7) { transition-delay: 0.48s; }
+
+.skills-left .skills-category-card:nth-child(1) { transition-delay: 0s; }
+.skills-left .skills-category-card:nth-child(2) { transition-delay: 0.08s; }
+.skills-left .skills-category-card:nth-child(3) { transition-delay: 0.16s; }
+.skills-left .skills-category-card:nth-child(4) { transition-delay: 0.24s; }
+.skills-left .skills-category-card:nth-child(5) { transition-delay: 0.32s; }
+.skills-left .skills-category-card:nth-child(6) { transition-delay: 0.4s; }
 
 /* ==========================================================================
    RESPONSIVE DESIGN BREAKPOINTS
