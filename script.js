@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCardTilt();
   initMetricCounters();
   initButtonRipple();
+  initImageLightbox();
 });
 
 /* ==========================================================================
@@ -640,7 +641,52 @@ function initButtonRipple() {
 }
 
 /* ==========================================================================
-   14. TOAST NOTIFICATION ENGINE
+   14. IMAGE ZOOM LIGHTBOX (ARCHITECTURE DIAGRAMS, ETC.)
+   ========================================================================== */
+function initImageLightbox() {
+  const lightbox = document.getElementById('image-lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const closeBtn = document.getElementById('lightbox-close');
+  const zoomableImages = document.querySelectorAll('.zoomable-img');
+
+  if (!lightbox || !lightboxImage || zoomableImages.length === 0) return;
+
+  function openLightbox(src, alt) {
+    lightboxImage.src = src;
+    lightboxImage.alt = alt || 'Zoomed image';
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+  }
+
+  zoomableImages.forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
+
+  // Clicking the dimmed backdrop (but not the image itself) closes it
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  lightboxImage.addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+}
+
+/* ==========================================================================
+   15. TOAST NOTIFICATION ENGINE
    ========================================================================== */
 function showToast(message, type = 'info') {
   const container = document.getElementById('toast-container');
@@ -663,7 +709,7 @@ function showToast(message, type = 'info') {
 }
 
 /* ==========================================================================
-   15. AUTOMATED FOOTER YEAR SETTING
+   16. AUTOMATED FOOTER YEAR SETTING
    ========================================================================== */
 function updateFooterYear() {
   const yearSpan = document.getElementById('footer-year');

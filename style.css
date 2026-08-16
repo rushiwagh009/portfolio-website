@@ -807,7 +807,7 @@ body[data-theme="light"] .icon-moon { display: none; }
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center 35%;
 }
 
 /* Floating widgets */
@@ -1306,6 +1306,120 @@ body[data-theme="light"] .icon-moon { display: none; }
   border-radius: 0.5rem;
   padding: 1.5rem;
   position: relative;
+}
+
+/* Zoomable diagram images (opens the lightbox on click) */
+.zoomable-img {
+  transition: transform var(--transition-normal), filter var(--transition-normal);
+}
+
+.interactive-diagram-container:hover .zoomable-img {
+  transform: scale(1.015);
+  filter: brightness(1.05);
+}
+
+.zoom-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  pointer-events: none;
+}
+
+.interactive-diagram-container:hover .zoom-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   IMAGE ZOOM LIGHTBOX
+   ========================================================================== */
+body.lightbox-open {
+  overflow: hidden;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.image-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: zoom-out;
+  transform: scale(0.92);
+  transition: transform var(--transition-normal);
+}
+
+.image-lightbox.active .lightbox-image {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.lightbox-close:hover {
+  background-color: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(90deg);
+}
+
+.lightbox-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .image-lightbox {
+    padding: 1.5rem;
+  }
+
+  .zoom-hint {
+    bottom: 1rem;
+    right: 1rem;
+  }
 }
 
 #eks-svg-diagram {
