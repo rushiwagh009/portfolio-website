@@ -12,6 +12,8 @@ import { Experience } from '../components/sections/Experience/Experience'
 import { Certifications } from '../components/sections/Certifications/Certifications'
 import { BlogSection } from '../components/sections/Blog/BlogSection'
 import { Speaking } from '../components/sections/Speaking/Speaking'
+import { Testimonials } from '../components/sections/Testimonials/Testimonials'
+import { Contact } from '../components/sections/Contact/Contact'
 import { usePrerenderReady } from '../hooks/usePrerenderReady'
 import { useScrollToHash } from '../hooks/useScrollToHash'
 
@@ -34,6 +36,8 @@ export function Home() {
         <Certifications />
         <BlogSection />
         <Speaking />
+        <Testimonials />
+        <Contact />
       </main>
       <Footer />
       <WhatsAppFloat />

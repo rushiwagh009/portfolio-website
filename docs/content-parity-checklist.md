@@ -72,13 +72,14 @@ Legend: ✅ ported · ⏳ not yet built (future milestone) · ⚠️ pending cli
 
 ## Testimonials (M5)
 
-- Decision: build the section shell, keep it hidden/unpublished (`isPublished:false`) — no fabricated quotes
+- ✅ Component built (`src/components/sections/Testimonials/Testimonials.tsx`), the 3 quotes carried over verbatim from the legacy commented-out markup as data — but **not mounted/visible**, gated behind `isPublished: false` in `content/testimonials.ts`. Flip that flag (and nothing else) once real, ready-to-publish quotes are confirmed.
 
 ## Contact (M5)
 
-- ⏳ Not yet built
-- Decision: stays simulated (validates, shows success, doesn't send) — no Lambda wiring in this build
-- Budget tiers to convert from INR-only to USD/dual-currency
+- ✅ Form: all fields, matches legacy validation/simulated-submit behavior exactly (native HTML5 `required` blocks empty submission before JS runs, same as legacy) — verified end-to-end: fill → submit → "Sending Request..." state → success toast → form reset
+- ✅ Budget tiers converted from INR-only to USD (reframed for international positioning, not a straight FX conversion): Under $1,000 / $1,000–$5,000 / $5,000–$15,000 / $15,000+ / Not sure yet
+- ✅ Direct contact channels (email, WhatsApp, LinkedIn, GitHub) + availability card with response-time note
+- Decision confirmed: stays simulated (no Lambda wiring) — same "Lambda URL not configured yet" behavior as today
 
 ## Footer + floating chrome (M1)
 
