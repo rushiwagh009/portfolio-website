@@ -5,7 +5,9 @@ import { BackToTop, ScrollProgressBar } from '../components/layout/ScrollChrome'
 import { Hero } from '../components/sections/Hero/Hero'
 import { TechStrip } from '../components/sections/TechStrip'
 import { About } from '../components/sections/About/About'
+import { Services } from '../components/sections/Services/Services'
 import { CaseStudies } from '../components/sections/CaseStudies/CaseStudies'
+import { Skills } from '../components/sections/Skills/Skills'
 import { BlogSection } from '../components/sections/Blog/BlogSection'
 import { usePrerenderReady } from '../hooks/usePrerenderReady'
 import { useScrollToHash } from '../hooks/useScrollToHash'
@@ -22,7 +24,9 @@ export function Home() {
         <Hero />
         <TechStrip />
         <About />
+        <Services />
         <CaseStudies />
+        <Skills />
         <BlogSection />
       </main>
       <Footer />

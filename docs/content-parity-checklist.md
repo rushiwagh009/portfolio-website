@@ -28,7 +28,8 @@ Legend: ✅ ported · ⏳ not yet built (future milestone) · ⚠️ pending cli
 
 ## Services — 12 items (M3)
 
-- ⏳ Not yet built
+- ✅ All 12 services with icons, titles, descriptions — faithful 2D grid
+- ✅ Ambient instanced-mesh 3D backdrop (48 nodes, `<instancedMesh>` per the brief's guidance for repeated geometry), decorative-only, subtle — the 2D grid stays the real content, not competing for attention (matches the About section's treatment tier rather than a full 3D carousel, which risked reading as "3D for its own sake" for content this simple; revisit at the M6 critique pass if a carousel is still wanted)
 
 ## Case Studies — 5 projects (M2)
 
@@ -38,10 +39,12 @@ Legend: ✅ ported · ⏳ not yet built (future milestone) · ⚠️ pending cli
 - ✅ Architecture diagram image wired to the lightbox, confirming the extensionless-webp bug fix actually renders (previously broken, now shows correctly)
 - ✅ Other 4 case studies (FinOps, DevSecOps w/ pipeline flow, Observability, CTFd) as 2D cards
 
-## Technical Expertise — 18 skill bars + 86-tag directory (M3)
+## Technical Expertise — 18 skill bars + tag directory (M3)
 
-- ⏳ Not yet built
-- ⚠️ 6 of 18 skill percentages are currently maxed at 100% in the legacy data — recalibrated values are pending client input; ships against placeholder data until provided
+- ✅ All 6 category cards with 18 skill bars, animate together once the section scrolls into view (matches legacy: one section-level observer, not per-bar — a real bug in an earlier draft of this milestone, fixed)
+- ✅ Tag directory — **79 tags**, not 86; recounted directly against the legacy source (`grep -c` on the actual HTML) since an earlier research pass in this session had the wrong figure. All 79 present and verified.
+- ✅ Decorative 3D orbital visualization (one node per category, sized/glowing by that category's average proficiency) — real data drives geometry, not invented, and stays a background layer behind the actual accessible skill bars
+- ⚠️ 6 of 18 skill percentages are currently maxed at 100% in the legacy data — recalibrated values are pending client input; ships against placeholder data until provided (the 3D visualization will read as more credible once real numbers land too)
 
 ## Professional Experience (M4)
 
