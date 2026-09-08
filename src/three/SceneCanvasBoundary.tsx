@@ -3,10 +3,18 @@ import { useRenderMode } from './RenderModeProvider'
 import { useInViewCanvas } from './useInViewCanvas'
 import { SceneErrorBoundary } from './SceneErrorBoundary'
 
-const SceneCanvasHost = lazy(() => import('./SceneCanvasHost'))
+const SceneCanvasHost = lazy(() => import('./SceneCanvasHost')) as ComponentType<{
+  scene: ComponentType<object>
+  sceneProps: object
+  renderMode: 'full3d' | 'reduced3d'
+}>
 
-interface SceneCanvasBoundaryProps {
-  scene: LazyExoticComponent<ComponentType> | ComponentType
+interface SceneCanvasBoundaryProps<P extends object> {
+  scene: LazyExoticComponent<ComponentType<P>> | ComponentType<P>
+  /** Props forwarded to the scene component once it mounts — the DOM-drives-3D-state
+   * pattern for interactive scenes (real focusable controls own state, the 3D scene
+   * only visualizes it) flows through here. */
+  sceneProps?: P
   /** Decorative scenes are purely visual backdrop (aria-hidden). Interactive
    * scenes follow the DOM-drives-3D-state pattern — real focusable controls
    * elsewhere own the interaction, this canvas only visualizes it — so they're
@@ -16,12 +24,13 @@ interface SceneCanvasBoundaryProps {
   className?: string
 }
 
-export function SceneCanvasBoundary({
-  scene: Scene,
+export function SceneCanvasBoundary<P extends object = object>({
+  scene,
+  sceneProps,
   decorative = true,
   label,
   className,
-}: SceneCanvasBoundaryProps) {
+}: SceneCanvasBoundaryProps<P>) {
   const renderMode = useRenderMode()
   const { ref, inView } = useInViewCanvas<HTMLDivElement>()
 
@@ -38,7 +47,11 @@ export function SceneCanvasBoundary({
       {shouldMount && (
         <SceneErrorBoundary>
           <Suspense fallback={null}>
-            <SceneCanvasHost scene={Scene} renderMode={renderMode} />
+            <SceneCanvasHost
+              scene={scene as ComponentType<object>}
+              sceneProps={(sceneProps ?? {}) as object}
+              renderMode={renderMode}
+            />
           </Suspense>
         </SceneErrorBoundary>
       )}

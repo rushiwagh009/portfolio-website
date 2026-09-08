@@ -5,6 +5,7 @@ import { BackToTop, ScrollProgressBar } from '../components/layout/ScrollChrome'
 import { Hero } from '../components/sections/Hero/Hero'
 import { TechStrip } from '../components/sections/TechStrip'
 import { About } from '../components/sections/About/About'
+import { CaseStudies } from '../components/sections/CaseStudies/CaseStudies'
 import { usePrerenderReady } from '../hooks/usePrerenderReady'
 
 export function Home() {
@@ -18,6 +19,7 @@ export function Home() {
         <Hero />
         <TechStrip />
         <About />
+        <CaseStudies />
       </main>
       <Footer />
       <WhatsAppFloat />

@@ -32,8 +32,11 @@ Legend: ✅ ported · ⏳ not yet built (future milestone) · ⚠️ pending cli
 
 ## Case Studies — 5 projects (M2)
 
-- ⏳ Not yet built
-- Known bug to fix during build: `3tier-arch-web` → renamed to `assets/3tier-arch.webp` already (done in M0), still needs wiring as the fallback2d/no-JS image behind the new EKS diorama
+- ✅ Category filter tabs (All/Kubernetes-EKS/FinOps/DevSecOps/Observability/CTF), state-driven, matches legacy `.hidden` toggle behavior
+- ✅ Featured EKS project: problem/solution, achievements, tech tags, 4 metrics, GitHub-private badge
+- ✅ EKS interactive 3D diorama (Overview/AZ-1/AZ-2/AZ-3/Load Balancer/Observability), DOM-drives-3D-state pattern — real buttons + description panel own the state, 3D scene only visualizes it, fully functional with zero 3D (fallback2d/no-JS)
+- ✅ Architecture diagram image wired to the lightbox, confirming the extensionless-webp bug fix actually renders (previously broken, now shows correctly)
+- ✅ Other 4 case studies (FinOps, DevSecOps w/ pipeline flow, Observability, CTFd) as 2D cards
 
 ## Technical Expertise — 18 skill bars + 86-tag directory (M3)
 

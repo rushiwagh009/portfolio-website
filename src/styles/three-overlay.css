@@ -5,6 +5,16 @@
   pointer-events: none;
 }
 
+/* R3F's <Canvas> renders its own wrapper div + canvas inside here, and neither
+   reliably inherits pointer-events: none from .scene-canvas-boundary (R3F sets
+   its own values). Every scene in this app follows the DOM-drives-3D-state
+   pattern (real buttons own interaction, the canvas only visualizes it), so
+   nothing in this subtree should ever capture pointer events — set it
+   explicitly on every descendant rather than relying on inheritance. */
+.scene-canvas-boundary * {
+  pointer-events: none !important;
+}
+
 .scene-canvas-boundary canvas {
   display: block;
   width: 100% !important;
