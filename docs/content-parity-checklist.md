@@ -48,12 +48,12 @@ Legend: ✅ ported · ⏳ not yet built (future milestone) · ⚠️ pending cli
 
 ## Professional Experience (M4)
 
-- ⏳ Not yet built
-- Decision: restore the previously-commented-out "Cloud Infrastructure Engineer" role (Jan 2024–Apr 2025) into the timeline, per user confirmation
+- ✅ All 3 timeline roles, including the restored "Cloud Infrastructure Engineer" role (Jan 2024–Apr 2025), per user confirmation — pulse indicator correctly shown only on the current role, matching legacy
+- ✅ All achievement bullets across all 3 roles verbatim
 
 ## Certifications — 4x AWS (M4)
 
-- ⏳ Not yet built
+- ✅ All 4 certs with real badge images, issue dates, verification links
 
 ## Technical Blog — index.html section + blog.html/blogs/terraform (M2)
 
@@ -68,7 +68,7 @@ Legend: ✅ ported · ⏳ not yet built (future milestone) · ⚠️ pending cli
 
 ## Speaking & Workshops (M4)
 
-- ⏳ Not yet built
+- ✅ Both events (Alumni Interaction Speaker, Technical Workshop Conductor) + the "invite me to speak" CTA card
 
 ## Testimonials (M5)
 
