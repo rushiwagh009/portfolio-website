@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rushiwagh.com/sitemap.xml

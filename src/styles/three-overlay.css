@@ -1,0 +1,12 @@
+.scene-canvas-boundary {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-canvas);
+  pointer-events: none;
+}
+
+.scene-canvas-boundary canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
