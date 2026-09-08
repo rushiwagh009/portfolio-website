@@ -57,7 +57,11 @@ export function EksDiorama({ selected }: EksDioramaProps) {
   return (
     <group ref={rootRef}>
       <ambientLight intensity={tokens.lightAmbientIntensity} />
-      <directionalLight position={[3, 4, 3]} intensity={tokens.lightKeyIntensity} color={tokens.colorAccent} />
+      <directionalLight
+        position={[3, 4, 3]}
+        intensity={tokens.lightKeyIntensity}
+        color={tokens.colorAccent}
+      />
       <directionalLight
         position={[-4, -2, -2]}
         intensity={tokens.lightFillIntensity}
@@ -67,10 +71,18 @@ export function EksDiorama({ selected }: EksDioramaProps) {
       <HubNode active={selected === 'overview' || selected === 'lb'} tokens={tokens} />
 
       {AZ_GROUPS.map((az) => (
-        <AzCluster key={az.id} group={az} active={selected === 'overview' || selected === az.id} tokens={tokens} />
+        <AzCluster
+          key={az.id}
+          group={az}
+          active={selected === 'overview' || selected === az.id}
+          tokens={tokens}
+        />
       ))}
 
-      <ObservabilityNode active={selected === 'overview' || selected === 'observability'} tokens={tokens} />
+      <ObservabilityNode
+        active={selected === 'overview' || selected === 'observability'}
+        tokens={tokens}
+      />
 
       {AZ_GROUPS.map((az) => (
         <Edge key={`edge-${az.id}`} from={HUB_POSITION} to={az.center} tokens={tokens} />
@@ -82,7 +94,11 @@ export function EksDiorama({ selected }: EksDioramaProps) {
 
 type Tokens = ReturnType<typeof readMaterialTokens>
 
-function useEmphasis(active: boolean, materialRef: React.RefObject<MeshStandardMaterial | null>, base: number) {
+function useEmphasis(
+  active: boolean,
+  materialRef: React.RefObject<MeshStandardMaterial | null>,
+  base: number,
+) {
   useFrame(() => {
     const mat = materialRef.current
     if (!mat) return
@@ -139,7 +155,15 @@ function AzCluster({ group, active, tokens }: { group: AzGroup; active: boolean;
   )
 }
 
-function AzNode({ offset, active, tokens }: { offset: [number, number, number]; active: boolean; tokens: Tokens }) {
+function AzNode({
+  offset,
+  active,
+  tokens,
+}: {
+  offset: [number, number, number]
+  active: boolean
+  tokens: Tokens
+}) {
   const meshRef = useRef<Mesh>(null)
   const materialRef = useRef<MeshStandardMaterial>(null)
   useEmphasis(active, materialRef, tokens.emissiveIntensity * 0.3)
@@ -166,12 +190,26 @@ function AzNode({ offset, active, tokens }: { offset: [number, number, number]; 
   )
 }
 
-function Edge({ from, to, tokens }: { from: [number, number, number]; to: [number, number, number]; tokens: Tokens }) {
+function Edge({
+  from,
+  to,
+  tokens,
+}: {
+  from: [number, number, number]
+  to: [number, number, number]
+  tokens: Tokens
+}) {
   const positions = useMemo(() => new Float32Array([...from, ...to]), [from, to])
   return (
     <line>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} count={2} array={positions} itemSize={3} />
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positions, 3]}
+          count={2}
+          array={positions}
+          itemSize={3}
+        />
       </bufferGeometry>
       <lineBasicMaterial color={tokens.colorAccent} transparent opacity={0.3} />
     </line>

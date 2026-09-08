@@ -115,7 +115,16 @@ export const caseStudies: CaseStudy[] = [
       'DAST (OWASP ZAP)',
       'Prod via ArgoCD',
     ],
-    techTags: ['Jenkins', 'ArgoCD', 'Docker', 'AWS ECR', 'Kubernetes', 'SonarQube', 'Trivy', 'OWASP ZAP'],
+    techTags: [
+      'Jenkins',
+      'ArgoCD',
+      'Docker',
+      'AWS ECR',
+      'Kubernetes',
+      'SonarQube',
+      'Trivy',
+      'OWASP ZAP',
+    ],
     metrics: [
       { value: 'Zero', label: 'Manual Releases', tone: 'success' },
       { value: '100%', label: 'Security Compliant' },
@@ -145,7 +154,8 @@ export const caseStudies: CaseStudy[] = [
     badgeLabel: 'CTF Platform',
     badgeTone: 'primary',
     title: 'Cloud-Native CTFd Platform Deployment & Operations',
-    problem: 'Cybersecurity organization required a scalable platform to host CTF competitions for hundreds of participants.',
+    problem:
+      'Cybersecurity organization required a scalable platform to host CTF competitions for hundreds of participants.',
     solution:
       'Designed, deployed, and managed a containerized CTFd platform on AWS with full networking, load balancing, monitoring, and infrastructure management.',
     techTags: ['AWS EC2', 'Docker', 'NGINX', 'Load Balancer', 'VPC', 'VPN'],

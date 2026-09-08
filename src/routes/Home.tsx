@@ -6,10 +6,13 @@ import { Hero } from '../components/sections/Hero/Hero'
 import { TechStrip } from '../components/sections/TechStrip'
 import { About } from '../components/sections/About/About'
 import { CaseStudies } from '../components/sections/CaseStudies/CaseStudies'
+import { BlogSection } from '../components/sections/Blog/BlogSection'
 import { usePrerenderReady } from '../hooks/usePrerenderReady'
+import { useScrollToHash } from '../hooks/useScrollToHash'
 
 export function Home() {
   usePrerenderReady()
+  useScrollToHash()
 
   return (
     <>
@@ -20,6 +23,7 @@ export function Home() {
         <TechStrip />
         <About />
         <CaseStudies />
+        <BlogSection />
       </main>
       <Footer />
       <WhatsAppFloat />

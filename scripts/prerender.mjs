@@ -2,9 +2,9 @@ import { chromium } from 'playwright'
 import { preview } from 'vite'
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
+import { blogPosts } from '../src/content/blogPosts.ts'
 
-// Known static routes. Extended with /blog/* post routes once MDX migration lands (M2).
-const ROUTES = ['/']
+const ROUTES = ['/', ...blogPosts.map((post) => `/blog/${post.slug}`)]
 
 async function main() {
   const server = await preview({ preview: { port: 4174, host: '127.0.0.1' } })

@@ -1,11 +1,14 @@
+import { useLocation } from 'react-router-dom'
 import { siteMeta } from '../../content/siteMeta'
 
 export function Footer() {
+  const isHome = useLocation().pathname === '/'
+
   return (
     <footer className="footer">
       <div className="container footer-container">
         <div className="footer-left">
-          <a href="#hero" className="logo">
+          <a href={isHome ? '#hero' : '/#hero'} className="logo">
             RW<span className="text-accent">.</span>
           </a>
           <p className="footer-title">Rushi Wagh</p>

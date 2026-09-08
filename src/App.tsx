@@ -5,6 +5,7 @@ import { LightboxProvider } from './hooks/useLightbox'
 import { RenderModeProvider } from './three/RenderModeProvider'
 import { Preloader } from './components/layout/Preloader'
 import { Home } from './routes/Home'
+import { BlogPost } from './components/sections/Blog/BlogPost'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
               </Routes>
             </BrowserRouter>
           </LightboxProvider>

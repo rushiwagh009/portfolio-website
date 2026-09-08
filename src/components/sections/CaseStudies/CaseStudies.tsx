@@ -98,12 +98,18 @@ export function CaseStudies() {
                     alt="Multi-AZ Kubernetes Platform Architecture"
                     className="zoomable-img"
                     style={{ width: '100%', borderRadius: 8, cursor: 'zoom-in' }}
-                    onClick={() => open(featured.architectureImage!, 'Multi-AZ Kubernetes Platform Architecture')}
+                    onClick={() =>
+                      open(featured.architectureImage!, 'Multi-AZ Kubernetes Platform Architecture')
+                    }
                   />
                   <span className="zoom-hint">🔍 Click to zoom</span>
                 </div>
 
-                <div className="diorama-controls" role="group" aria-label="Architecture component selector">
+                <div
+                  className="diorama-controls"
+                  role="group"
+                  aria-label="Architecture component selector"
+                >
                   {eksDioramaNodes.map((node) => (
                     <button
                       key={node.id}
@@ -121,7 +127,11 @@ export function CaseStudies() {
           </Card>
 
           {rest.map((project) => (
-            <ProjectCard key={project.slug} project={project} hidden={filter !== 'all' && filter !== project.category} />
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              hidden={filter !== 'all' && filter !== project.category}
+            />
           ))}
         </div>
       </div>
@@ -129,7 +139,13 @@ export function CaseStudies() {
   )
 }
 
-function ProjectCard({ project, hidden }: { project: (typeof caseStudies)[number]; hidden: boolean }) {
+function ProjectCard({
+  project,
+  hidden,
+}: {
+  project: (typeof caseStudies)[number]
+  hidden: boolean
+}) {
   return (
     <Card className={`project-card${hidden ? ' hidden' : ''}`} data-category={project.category}>
       <div className={`project-badge bg-${project.badgeTone}-glow`}>
@@ -164,7 +180,9 @@ function ProjectCard({ project, hidden }: { project: (typeof caseStudies)[number
       <div className="project-submetrics">
         {project.metrics.map((m) => (
           <div key={m.label}>
-            <span className={`submetric-val${m.tone === 'success' ? ' text-success' : ''}`}>{m.value}</span>
+            <span className={`submetric-val${m.tone === 'success' ? ' text-success' : ''}`}>
+              {m.value}
+            </span>
             <span className="submetric-lbl">{m.label}</span>
           </div>
         ))}

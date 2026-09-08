@@ -1,24 +1,45 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme'
 import { useActiveSection } from '../../hooks/useActiveSection'
 
-const NAV_LINKS = [
-  { href: '#about', label: 'About' },
-  { href: '#services', label: 'Services' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#certifications', label: 'Certifications' },
-  { href: '#blog', label: 'Blog' },
-  { href: '#contact', label: 'Contact' },
+const SECTION_IDS = [
+  'about',
+  'services',
+  'projects',
+  'skills',
+  'experience',
+  'certifications',
+  'blog',
+  'contact',
 ]
+const NAV_LABELS: Record<string, string> = {
+  about: 'About',
+  services: 'Services',
+  projects: 'Projects',
+  skills: 'Skills',
+  experience: 'Experience',
+  certifications: 'Certifications',
+  blog: 'Blog',
+  contact: 'Contact',
+}
 
 export function Header() {
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const navRef = useRef<HTMLElement>(null)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
-  const activeId = useActiveSection(NAV_LINKS.map((l) => l.href.slice(1)))
+  const activeId = useActiveSection(SECTION_IDS)
+  const { pathname } = useLocation()
+  const isHome = pathname === '/'
+  // On any route other than home, these anchor targets don't exist on the
+  // current page — link to the home route's hash instead (Home is
+  // prerendered, so the browser's native hash-scroll still works pre-hydration).
+  const NAV_LINKS = SECTION_IDS.map((id) => ({
+    href: isHome ? `#${id}` : `/#${id}`,
+    id,
+    label: NAV_LABELS[id],
+  }))
 
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen)
@@ -43,16 +64,16 @@ export function Header() {
   return (
     <header className="header">
       <div className="nav-container">
-        <a href="#hero" className="logo">
+        <a href={isHome ? '#hero' : '/#hero'} className="logo">
           RW<span className="text-accent">.</span>
         </a>
 
         <nav ref={navRef} className={`nav-menu${menuOpen ? ' active' : ''}`} id="nav-menu">
           {NAV_LINKS.map((link) => (
             <a
-              key={link.href}
+              key={link.id}
               href={link.href}
-              className={`nav-link${activeId === link.href.slice(1) ? ' active' : ''}`}
+              className={`nav-link${isHome && activeId === link.id ? ' active' : ''}`}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}

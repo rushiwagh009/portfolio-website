@@ -54,7 +54,14 @@ Legend: ✅ ported · ⏳ not yet built (future milestone) · ⚠️ pending cli
 
 ## Technical Blog — index.html section + blog.html/blogs/terraform (M2)
 
-- ⏳ Not yet built — migrating to MDX with real `/blog/*` routes
+- ✅ Index section: search box (client-side filter across title/teaser/keywords) + 6 chapter cards
+- ✅ All 6 chapters migrated to MDX at real routes (`/blog/terraform-chapter1` … `-6`), each its own lazy-loaded chunk (4.7–11.4KB gzip)
+- ✅ Obsidian image embeds (`![[...]]`) rewritten to the renamed WebP assets; the one broken/orphaned embed (`ChatGPT Image...png`, never resolved even on the live site) is dropped with a build-time warning rather than crashing
+- ✅ The one real cross-chapter wikilink (`[[Chapter 2 - ...]]`) renders as a decorative tag, matching current site behavior
+- ✅ Syntax highlighting via Shiki (`rehype-pretty-code`) — HCL/bash/json all render correctly, higher quality than the legacy highlight.js theme
+- ✅ No Mermaid diagrams exist in any of the 6 chapters (verified directly — contradicts an earlier, incorrect research note) — the Mermaid-to-SVG tooling from the original architecture plan was dropped as unnecessary
+- ✅ Prerendering extended to all 7 routes (home + 6 posts)
+- Fixed along the way: header/footer nav links now route-aware (`/#about` vs `#about` depending on current page) — previously broken when clicked from any blog post; added scroll-to-hash on client-side route transitions (React Router doesn't do this natively)
 
 ## Speaking & Workshops (M4)
 
