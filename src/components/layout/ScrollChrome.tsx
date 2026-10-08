@@ -1,12 +1,5 @@
 import { useScrollProgress } from '../../hooks/useScrollProgress'
 
-export function ScrollProgressBar() {
-  const { progress } = useScrollProgress()
-  return (
-    <div id="scroll-progress" className="scroll-progress" style={{ width: `${progress}%` }}></div>
-  )
-}
-
 export function BackToTop() {
   const { pastThreshold } = useScrollProgress()
   return (

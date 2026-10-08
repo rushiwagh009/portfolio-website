@@ -1,7 +1,6 @@
 import { Header } from '../components/layout/Header'
 import { Footer } from '../components/layout/Footer'
-import { WhatsAppFloat } from '../components/layout/WhatsAppFloat'
-import { BackToTop, ScrollProgressBar } from '../components/layout/ScrollChrome'
+import { BackToTop } from '../components/layout/ScrollChrome'
 import { Hero } from '../components/sections/Hero/Hero'
 import { TechStrip } from '../components/sections/TechStrip'
 import { About } from '../components/sections/About/About'
@@ -23,9 +22,11 @@ export function Home() {
 
   return (
     <>
-      <ScrollProgressBar />
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <TechStrip />
         <About />
@@ -40,7 +41,6 @@ export function Home() {
         <Contact />
       </main>
       <Footer />
-      <WhatsAppFloat />
       <BackToTop />
     </>
   )

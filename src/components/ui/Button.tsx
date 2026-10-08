@@ -1,5 +1,4 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
-import { useRipple } from '../../hooks/useRipple'
 
 type Variant = 'primary' | 'outline'
 
@@ -16,7 +15,6 @@ type AsButton = CommonProps & ButtonHTMLAttributes<HTMLButtonElement> & { href?:
 
 export function Button(props: AsAnchor | AsButton) {
   const { variant = 'primary', small, block, children, className = '', ...rest } = props
-  const ripple = useRipple()
 
   const classes = [
     'btn',
@@ -31,7 +29,7 @@ export function Button(props: AsAnchor | AsButton) {
   if ('href' in props && props.href !== undefined) {
     const anchorRest = rest as AnchorHTMLAttributes<HTMLAnchorElement>
     return (
-      <a className={classes} onClick={ripple} {...anchorRest}>
+      <a className={classes} {...anchorRest}>
         {children}
       </a>
     )
@@ -39,7 +37,7 @@ export function Button(props: AsAnchor | AsButton) {
 
   const buttonRest = rest as ButtonHTMLAttributes<HTMLButtonElement>
   return (
-    <button className={classes} onClick={ripple} {...buttonRest}>
+    <button className={classes} {...buttonRest}>
       {children}
     </button>
   )
