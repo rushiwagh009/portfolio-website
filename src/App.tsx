@@ -6,6 +6,7 @@ import { RenderModeProvider } from './three/RenderModeProvider'
 import { Preloader } from './components/layout/Preloader'
 import { Home } from './routes/Home'
 import { BlogPost } from './components/sections/Blog/BlogPost'
+import { Styleguide } from './routes/Styleguide'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/blog/:slug" element={<BlogPost />} />
+                {import.meta.env.DEV && <Route path="/styleguide" element={<Styleguide />} />}
               </Routes>
             </BrowserRouter>
           </LightboxProvider>
