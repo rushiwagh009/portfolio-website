@@ -1,27 +1,20 @@
-/* Blog reader page — ported from legacy/blog.html's embedded <style> block
-   (that page had its own stylesheet separate from style.css). */
+/* Blog reader page (/blog/:slug). Tokens from MASTER.md; code blocks keep mono and Shiki colours. */
 
 .blog-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 120px 1.5rem 60px;
+  padding: calc(64px + var(--space-12)) var(--gutter) var(--space-16);
   min-height: 80vh;
-}
-
-.blog-header {
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 1.5rem;
 }
 
 .back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-2);
+  min-height: 44px;
   color: var(--accent);
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-6);
   font-weight: 500;
-  text-decoration: none;
 }
 
 .back-btn:hover {
@@ -29,46 +22,50 @@
 }
 
 .markdown-body {
-  color: var(--text-secondary);
-  font-size: 1.125rem;
-  line-height: 1.8;
+  color: var(--foreground);
+  font-size: var(--text-lead);
+  line-height: 1.7;
 }
 
 .markdown-body h1,
 .markdown-body h2,
 .markdown-body h3,
 .markdown-body h4 {
-  color: var(--text-primary);
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
+  color: var(--foreground);
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-4);
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 .markdown-body h1 {
-  font-size: 2.5rem;
-  margin-top: 1rem;
+  font-size: var(--text-display);
+  margin-top: var(--space-4);
 }
 .markdown-body h2 {
-  font-size: 1.75rem;
+  font-size: var(--text-h2);
   border-bottom: 1px solid var(--border);
-  padding-bottom: 0.5rem;
+  padding-bottom: var(--space-2);
 }
 .markdown-body h3 {
-  font-size: 1.5rem;
+  font-size: var(--text-h3);
 }
 
 .markdown-body p,
 .markdown-body ul,
 .markdown-body ol {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-6);
 }
 
 .markdown-body ul,
 .markdown-body ol {
-  padding-left: 2rem;
+  padding-left: var(--space-8);
+}
+.markdown-body ul {
+  list-style: disc;
 }
 .markdown-body li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
 }
 
 .markdown-body a {
@@ -77,63 +74,60 @@
   text-underline-offset: 4px;
 }
 
-.markdown-body a:hover {
-  color: var(--accent-dark);
-}
-
 .markdown-body blockquote {
-  border-left: 4px solid var(--accent);
-  color: #ffffff;
+  border-left: 2px solid var(--input);
+  color: var(--foreground);
   margin-left: 0;
-  background: var(--bg-tertiary);
-  padding: 1rem;
-  border-radius: 0 0.5rem 0.5rem 0;
-  font-style: italic;
+  background: var(--card);
+  padding: var(--space-4);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
 .markdown-body pre {
-  background: #0d1117;
-  padding: 1rem;
-  border-radius: 0.5rem;
+  background: var(--card);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
   overflow-x: auto;
-  margin: 1.5rem 0;
+  margin: var(--space-6) 0;
   border: 1px solid var(--border);
 }
 
 .markdown-body code {
   font-family: var(--font-mono);
-  background: rgba(110, 118, 129, 0.1);
+  background: var(--muted);
   padding: 0.2em 0.4em;
-  border-radius: 3px;
+  border-radius: var(--radius-sm);
   font-size: 85%;
 }
 
 .markdown-body pre code {
   background: transparent;
   padding: 0;
-  font-size: 0.875rem;
+  font-size: var(--text-small);
 }
 
 .markdown-body table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  margin: var(--space-6) 0;
+  display: block;
+  overflow-x: auto;
 }
 
 .markdown-body th,
 .markdown-body td {
   border: 1px solid var(--border);
-  padding: 0.75rem;
+  padding: var(--space-3);
   text-align: left;
 }
 
 .markdown-body th {
-  background: var(--bg-tertiary);
+  background: var(--card);
 }
 
 .markdown-body img {
   max-width: 100%;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
 }
 
@@ -146,26 +140,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 0;
-  color: var(--text-muted);
+  padding: var(--space-16) 0;
+  color: var(--muted-foreground);
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--border);
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--border);
   border-radius: 50%;
   border-top-color: var(--accent);
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 1rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--space-4);
 }
 
 .error-state {
-  text-align: center;
-  padding: 4rem 0;
+  padding: var(--space-16) 0;
 }
 
 .error-state h2 {
-  color: var(--danger);
-  margin-bottom: 1rem;
+  color: var(--destructive);
+  margin-bottom: var(--space-4);
 }

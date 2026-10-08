@@ -17,7 +17,21 @@ export function Certifications() {
                 </a>
               </div>
               <div className="cert-card-body">
-                <span className="cert-verified">✓ VERIFIED</span>
+                <span className="cert-verified">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  VERIFIED
+                </span>
                 <h3>
                   <a
                     href={certificationVerifyUrl}

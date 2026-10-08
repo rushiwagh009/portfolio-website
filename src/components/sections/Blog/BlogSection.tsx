@@ -21,6 +21,7 @@ export function BlogSection() {
           <input
             type="text"
             id="blog-search"
+            aria-label="Search technical topics"
             placeholder="Search technical topics (e.g. Terraform, EKS, cost)..."
             className="blog-search-input"
             value={query}

@@ -6,7 +6,7 @@ import type { ReactNode } from 'react'
  * enhancement, not part of this migration. */
 export function WikiTag({ children }: { children: ReactNode }) {
   return (
-    <span className="tag bg-cyan-glow wiki-tag" title="Wiki link representation">
+    <span className="tag wiki-tag" title="Wiki link representation">
       {children}
     </span>
   )
