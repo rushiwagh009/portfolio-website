@@ -307,7 +307,7 @@ img {
   font-size: 2rem;
 }
 
-/* Terminal panel (used by the hero until its Phase 3 redesign) */
+/* Terminal panel (hero sample) */
 .terminal-header {
   background-color: var(--muted);
   padding: var(--space-3) var(--space-4);
@@ -480,294 +480,153 @@ body[data-theme='light'] .icon-moon {
    HERO SECTION
    ========================================================================== */
 .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding-top: 80px;
-  overflow: hidden;
-}
-
-.hero-bg-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-position: center top;
-  mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.3;
-}
-
-.hero-glow {
-  position: absolute;
-  top: 20%;
-  right: 10%;
-  width: 400px;
-  height: 400px;
-  background-color: var(--accent);
-  filter: blur(140px);
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 1;
+  padding: calc(64px + var(--space-16)) 0 var(--space-16);
+  border-bottom: 1px solid var(--border);
 }
 
 .hero-container {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: start;
 }
 
-/* Left Column */
 .hero-left {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  align-items: flex-start;
 }
 
-.badge-availability {
-  align-self: flex-start;
+.hero-status {
   display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.375rem 0.875rem;
-  border-radius: 9999px;
-  border: 1px solid var(--accent);
-  background-color: var(--accent-glow);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--accent);
+  gap: var(--space-2);
+  font-size: var(--text-small);
+  color: var(--muted-foreground);
+  margin-bottom: var(--space-6);
 }
 
-.pulse-dot {
+.status-dot {
   width: 8px;
   height: 8px;
-  background-color: var(--success);
   border-radius: 50%;
-  display: inline-block;
-  animation: pulse 2s infinite;
-  box-shadow: 0 0 8px var(--success);
+  background-color: var(--success);
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: var(--text-display);
+  font-weight: 600;
   line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-6);
 }
 
 .hero-tagline {
-  font-size: 1.25rem;
-  color: var(--text-secondary);
-  max-width: 540px;
+  font-size: var(--text-lead);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  max-width: 52ch;
+  margin-bottom: var(--space-6);
 }
 
-.hero-rotator {
+.hero-capabilities {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  min-height: 1.5em;
-}
-
-.rotator-prefix {
-  color: var(--accent);
-  font-weight: 700;
-}
-
-.rotator-text {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.rotator-cursor {
-  color: var(--accent);
-  font-weight: 700;
-  animation: blinkCursor 1s step-end infinite;
-}
-
-@keyframes blinkCursor {
-  50% {
-    opacity: 0;
-  }
-}
-
-.hero-metrics {
-  display: flex;
-  gap: 2rem;
-  margin: 1.5rem 0;
   flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
 }
 
-.metric-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.metric-value {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: var(--accent);
-}
-
-.metric-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  font-weight: 500;
+.hero-capabilities li {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--muted);
+  font-size: var(--text-small);
+  color: var(--foreground);
 }
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
 }
 
-/* Right Column */
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-8);
+  width: 100%;
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border);
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: var(--space-1);
+}
+
+.metric-value {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+.metric-label {
+  font-size: var(--text-small);
+  color: var(--muted-foreground);
+}
+
 .hero-right {
-  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
-
-.profile-container {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.conic-spin-ring {
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, var(--accent), transparent 50%, var(--accent));
-  animation: spin 8s linear infinite;
-  z-index: 1;
+  gap: var(--space-6);
 }
 
 .profile-frame {
-  position: relative;
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  padding: 4px;
-  background-color: var(--bg-primary);
-  z-index: 2;
+  max-width: 320px;
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
+  background-color: var(--card);
 }
 
 .profile-photo {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center 40%;
 }
 
-/* Floating widgets */
-.floating-badge {
-  position: absolute;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border);
-  padding: 0.625rem 1rem;
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  z-index: 3;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.floating-badge.top-right {
-  top: 16px;
-  right: -90px;
-  animation: floatBadge 4s ease-in-out infinite;
-}
-
-.floating-badge.bottom-left {
-  bottom: 40px;
-  left: -120px;
-  animation: floatBadge 4.5s ease-in-out infinite 0.5s;
-}
-
-@keyframes floatBadge {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.badge-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 800;
-  font-size: 0.875rem;
-}
-
-.badge-icon.green-glow {
-  background-color: rgba(34, 197, 94, 0.15);
-  color: var(--success);
-}
-
-.badge-icon.cyan-glow {
-  background-color: rgba(6, 182, 212, 0.15);
-  color: var(--accent);
-}
-
-.badge-title {
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-.badge-desc {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-/* Terminal widget in Hero */
+/* Static terminal sample: real code, so mono is allowed here */
 .hero-right .terminal-widget {
   width: 100%;
-  max-width: 400px;
-  background-color: rgba(9, 13, 22, 0.9);
+  max-width: 480px;
+  background-color: var(--card);
   border: 1px solid var(--border);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .hero-right .terminal-widget .terminal-body {
-  min-height: 110px;
-  padding: 1rem;
-  font-size: 0.8125rem;
+  min-height: 0;
+  max-height: none;
+  overflow-x: auto;
+  padding: var(--space-4);
+  font-size: var(--text-label);
+  line-height: 1.6;
+}
+
+.hero-right .terminal-widget .terminal-body pre {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  color: var(--muted-foreground);
+  white-space: pre;
 }
 
 /* ==========================================================================
@@ -2290,55 +2149,20 @@ body.lightbox-open {
   }
 }
 
-/* Scroll Animations */
-.animate-fade-in {
-  opacity: 0;
-  animation: fadeIn 1s forwards;
-}
-
-.animate-fade-up {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.hero-left .animate-fade-in:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.hero-left .animate-fade-up:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.hero-left .animate-fade-up:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.hero-left .animate-fade-up:nth-child(4) {
-  animation-delay: 0.4s;
-}
-.hero-left .animate-fade-up:nth-child(5) {
-  animation-delay: 0.5s;
-}
-.hero-left .animate-fade-up:nth-child(6) {
-  animation-delay: 0.6s;
-}
-
-.hero-right .animate-fade-in {
-  animation-delay: 0.3s;
-}
-.hero-right .animate-fade-up {
-  animation-delay: 0.6s;
-}
-
 @keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Used by the Contact form until its own phase */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--success);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s infinite;
 }
 
 /* Scroll Trigger helper classes */
@@ -2432,26 +2256,8 @@ body.lightbox-open {
 /* Tablet (Large Devices & iPads) */
 @media (max-width: 1024px) {
   .hero-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    text-align: center;
-    padding-top: 40px;
-  }
-
-  .hero-left {
-    align-items: center;
-  }
-
-  .hero-tagline {
-    margin: 0 auto;
-  }
-
-  .hero-metrics {
-    justify-content: center;
-  }
-
-  .hero-actions {
-    justify-content: center;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-12);
   }
 
   .about-grid {
@@ -2562,10 +2368,6 @@ body.lightbox-open {
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  .hero-title {
-    font-size: 2.75rem;
-  }
-
   .differentiators-grid {
     grid-template-columns: 1fr;
   }
@@ -2606,16 +2408,8 @@ body.lightbox-open {
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 2.25rem;
-  }
-
   .hero-metrics {
-    gap: 1rem;
-  }
-
-  .metric-value {
-    font-size: 1.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .project-metrics {
