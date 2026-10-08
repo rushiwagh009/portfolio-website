@@ -4,14 +4,13 @@ import { SectionHeader } from '../../ui/SectionHeader'
 import { Card } from '../../ui/Card'
 import { useReveal } from '../../../hooks/useReveal'
 
-function TimelineItem({ role, first }: { role: (typeof experience)[number]; first: boolean }) {
+function TimelineItem({ role }: { role: (typeof experience)[number] }) {
   const ref = useRef<HTMLDivElement>(null)
   useReveal(ref)
 
   return (
     <div ref={ref} className="timeline-item">
       <div className="timeline-dot-container">
-        {first && <span className="timeline-dot-pulse"></span>}
         <span className="timeline-dot"></span>
       </div>
       <Card className="timeline-content">
@@ -38,8 +37,8 @@ export function Experience() {
 
         <div className="timeline">
           <div className="timeline-line"></div>
-          {experience.map((role, i) => (
-            <TimelineItem key={role.title + role.duration} role={role} first={i === 0} />
+          {experience.map((role) => (
+            <TimelineItem key={role.title + role.duration} role={role} />
           ))}
         </div>
       </div>

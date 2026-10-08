@@ -93,7 +93,7 @@
   --three-roughness-structure: 0.35;
   --three-metalness-glass: 0.1; /* panel/glow surfaces */
   --three-roughness-glass: 0.05;
-  --three-emissive-intensity: 1.4;
+  --three-emissive-intensity: 0.9;
 
   /* Lighting rig — key/fill/rim, tuned for a dark charcoal environment so
      cyan accents read as illuminated rather than flat-lit */

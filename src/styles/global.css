@@ -1256,108 +1256,81 @@ body.lightbox-open {
    ========================================================================== */
 .skills-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 4rem;
-}
-
-.skills-left {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: stretch;
 }
 
 .skills-category-card {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--space-4);
 }
 
 .skills-category-card h3 {
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: var(--text-lead);
+  font-weight: 600;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 0.5rem;
+  padding-bottom: var(--space-3);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
-/* Logo inside skill category heading */
 .skill-cat-logo {
   width: 24px;
   height: 24px;
   object-fit: contain;
   flex-shrink: 0;
-  display: inline-block;
-  filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.2));
-  transition: transform 0.2s ease;
 }
 
-.skills-category-card h3:hover .skill-cat-logo {
-  transform: scale(1.15);
-}
-
-.skill-item {
+.skill-list {
+  list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-3);
 }
 
-.skill-info {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-secondary);
+.skill-list li {
+  font-size: var(--text-small);
+  color: var(--foreground);
+  position: relative;
+  padding-left: var(--space-4);
 }
 
-.skill-bar {
-  width: 100%;
-  height: 6px;
-  background-color: rgba(9, 13, 22, 0.5);
-  border-radius: 3px;
-  overflow: hidden;
+.skill-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 6px;
+  height: 1px;
+  background: var(--muted-foreground);
 }
 
-.skill-fill {
-  height: 100%;
-  width: 0%; /* Animated on scroll */
-  background: linear-gradient(90deg, var(--accent) 0%, #3b82f6 100%);
-  border-radius: 3px;
-  transition: width 1.5s cubic-bezier(0.1, 0.8, 0.2, 1);
-}
-
-/* Tag cloud directory (right side) */
+/* Tag directory spans the full row */
 .tag-cloud-card {
-  height: fit-content;
+  grid-column: 1 / -1;
 }
 
 .tag-cloud-card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  font-size: var(--text-lead);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
   border-bottom: 1px solid var(--border);
-  padding-bottom: 0.75rem;
+  padding-bottom: var(--space-3);
 }
 
 .tag-cloud {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-2);
 }
 
 .tag-cloud .tag {
-  background-color: var(--bg-primary);
-  border-color: var(--border);
-  transition: all var(--transition-fast);
+  background-color: var(--background);
+  border: 1px solid var(--border);
   cursor: default;
-}
-
-.tag-cloud .tag:hover {
-  border-color: var(--accent);
-  color: var(--text-primary);
-  background-color: var(--accent-glow);
 }
 
 /* ==========================================================================
@@ -1366,23 +1339,21 @@ body.lightbox-open {
 .timeline {
   position: relative;
   max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 0;
 }
 
 .timeline-line {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 20px;
-  width: 2px;
+  left: 7px;
+  width: 1px;
   background-color: var(--border);
 }
 
 .timeline-item {
   position: relative;
-  padding-left: 60px;
-  margin-bottom: 3rem;
+  padding-left: var(--space-12);
+  margin-bottom: var(--space-8);
 }
 
 .timeline-item:last-child {
@@ -1391,10 +1362,10 @@ body.lightbox-open {
 
 .timeline-dot-container {
   position: absolute;
-  left: 11px;
-  top: 12px;
-  width: 20px;
-  height: 20px;
+  left: 0;
+  top: var(--space-6);
+  width: 15px;
+  height: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1402,72 +1373,65 @@ body.lightbox-open {
 }
 
 .timeline-dot {
-  width: 10px;
-  height: 10px;
-  background-color: var(--bg-primary);
+  width: 9px;
+  height: 9px;
+  background-color: var(--background);
   border: 2px solid var(--accent);
   border-radius: 50%;
   display: inline-block;
 }
 
 .timeline-dot-pulse {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  background-color: var(--accent-glow);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-.timeline-content {
-  padding: 2rem;
+  display: none;
 }
 
 .timeline-header-info {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--space-1);
   border-bottom: 1px solid var(--border);
-  padding-bottom: 1rem;
-  margin-bottom: 1.25rem;
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-4);
 }
 
 .timeline-duration {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--accent);
+  font-size: var(--text-small);
+  color: var(--muted-foreground);
   font-weight: 500;
 }
 
 .timeline-content h3 {
-  font-size: 1.375rem;
-  font-weight: 800;
+  font-size: var(--text-h3);
+  font-weight: 600;
 }
 
 .timeline-company {
-  font-size: 0.9375rem;
-  color: var(--text-muted);
+  font-size: var(--text-small);
+  color: var(--muted-foreground);
 }
 
 .timeline-achievements {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-3);
 }
 
 .timeline-achievements li {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
+  font-size: var(--text-small);
+  color: var(--foreground);
   position: relative;
-  padding-left: 1.25rem;
+  padding-left: var(--space-4);
 }
 
 .timeline-achievements li::before {
-  content: '✦';
+  content: '';
   position: absolute;
   left: 0;
-  color: var(--accent);
+  top: 0.7em;
+  width: 6px;
+  height: 1px;
+  background: var(--muted-foreground);
 }
 
 /* ==========================================================================
@@ -2146,13 +2110,12 @@ body.lightbox-open {
   }
 
   .project-featured-content {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
   }
 
   .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .certs-grid {
@@ -2236,6 +2199,10 @@ body.lightbox-open {
     transform: translateY(-7px) rotate(-45deg);
   }
 
+  .skills-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .differentiators-grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -2276,6 +2243,10 @@ body.lightbox-open {
 }
 
 @media (max-width: 480px) {
+  .timeline-item {
+    padding-left: var(--space-8);
+  }
+
   .hero-metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
