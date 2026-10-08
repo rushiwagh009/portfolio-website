@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react'
 import { isPrerenderCapture } from '../lib/prerenderCapture'
 
 export function useActiveSection(sectionIds: string[]) {
-  const [activeId, setActiveId] = useState<string>(sectionIds[0] ?? '')
+  const [activeId, setActiveId] = useState<string>('')
 
   useEffect(() => {
     // Whichever section happens to be in view at the moment of capture would
     // otherwise get baked in as the "active" nav link, which only matches a
-    // fresh visitor's initial state (sectionIds[0]) by coincidence of scroll
+    // fresh visitor's initial state ('') by coincidence of scroll
     // position — pin to the initial value during capture instead of relying on that.
     if (isPrerenderCapture()) return
 

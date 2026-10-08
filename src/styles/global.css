@@ -186,9 +186,9 @@ img {
 }
 
 .subsection-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 2rem 0 1rem;
+  font-size: var(--text-h3);
+  font-weight: 600;
+  margin: var(--space-12) 0 var(--space-6);
 }
 
 /* ==========================================================================
@@ -630,76 +630,46 @@ body[data-theme='light'] .icon-moon {
 }
 
 /* ==========================================================================
-   TECHNOLOGY MARQUEE STRIP
+   TECHNOLOGY STACK STRIP
    ========================================================================== */
 .tech-strip {
-  border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  background-color: var(--bg-secondary);
-  padding: 1.5rem 0;
-  overflow: hidden;
+  background-color: var(--card);
+  padding: var(--space-8) 0;
 }
 
 .tech-strip-title {
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 0.15em;
-  margin-bottom: 0.75rem;
+  font-size: var(--text-label);
+  font-weight: 500;
+  color: var(--muted-foreground);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-4);
   text-transform: uppercase;
 }
 
-.marquee-container {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.marquee-track {
+.tech-list {
   display: flex;
-  gap: 2rem;
-  width: max-content;
-  animation: marquee 25s linear infinite;
-}
-
-.marquee-container:hover .marquee-track {
-  animation-play-state: paused;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .tech-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background-color: var(--bg-tertiary);
+  gap: var(--space-2);
+  background-color: var(--background);
   border: 1px solid var(--border);
-  padding: 0.375rem 1rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-small);
   font-weight: 500;
-  color: var(--text-secondary);
-  transition:
-    border-color var(--transition-fast),
-    background-color var(--transition-fast);
+  color: var(--foreground);
   white-space: nowrap;
 }
 
-.tech-chip:hover {
-  border-color: var(--accent);
-  background-color: var(--accent-glow);
-}
-
-.chip-dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--accent);
-  border-radius: 50%;
-}
-
-/* Logo inside marquee tech chip */
 .chip-logo {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
   flex-shrink: 0;
   display: block;
@@ -710,107 +680,110 @@ body[data-theme='light'] .icon-moon {
    ========================================================================== */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
-  gap: 4rem;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: start;
 }
 
 .bio-text {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
+  font-size: var(--text-lead);
+  line-height: 1.65;
+  max-width: 68ch;
+  margin-bottom: var(--space-6);
 }
 
 .bio-record-badge {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  background: var(--bg-tertiary);
+  gap: var(--space-4);
+  background: var(--card);
   border: 1px solid var(--border);
-  padding: 1.25rem;
-  border-radius: 0.5rem;
-  margin-bottom: 2.5rem;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-8);
+  transition: border-color var(--transition-fast);
 }
 
-.record-icon {
-  font-size: 2rem;
+a:hover > .bio-record-badge {
+  border-color: var(--input);
 }
 
 .record-title {
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 600;
+  font-size: var(--text-body);
 }
 
 .record-desc {
-  font-size: 0.875rem;
-  color: var(--text-muted);
+  font-size: var(--text-small);
+  color: var(--muted-foreground);
 }
 
 .differentiators-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6);
 }
 
 .diff-card {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.5rem;
+  gap: var(--space-2);
 }
 
 .diff-number {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  color: var(--accent);
-  font-weight: 600;
+  font-size: var(--text-small);
+  font-weight: 500;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
 }
 
 .diff-card h4 {
-  font-size: 1.125rem;
-  font-weight: 700;
+  font-size: var(--text-body);
+  font-weight: 600;
 }
 
 .diff-card p {
-  font-size: 0.875rem;
-  color: var(--text-muted);
+  font-size: var(--text-small);
+  color: var(--muted-foreground);
 }
 
-/* Info pills card (right column of about) */
-.pills-card {
-  padding: 2.5rem 2rem;
+/* Consultant overview card (right column) */
+.about-right {
+  position: sticky;
+  top: calc(64px + var(--space-6));
 }
 
 .pills-card h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
+  font-size: var(--text-h3);
+  font-weight: 600;
+  margin-bottom: var(--space-6);
   border-bottom: 1px solid var(--border);
-  padding-bottom: 0.75rem;
+  padding-bottom: var(--space-3);
 }
 
 .info-pills {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-4);
 }
 
 .info-pills li {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--space-1);
 }
 
 .pill-label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted-foreground);
 }
 
 .pill-value {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--foreground);
 }
 
 /* ==========================================================================
@@ -2165,88 +2138,18 @@ body.lightbox-open {
   animation: pulse 2s infinite;
 }
 
-/* Scroll Trigger helper classes */
+/* Reveal: one-shot, 200ms, 8px translate (MASTER.md section 7) */
 .reveal-hidden {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(8px);
   transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity var(--transition-normal),
+    transform var(--transition-normal);
 }
 
 .reveal-visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Staggered cascade delays for cards inside grid layouts */
-.services-grid .card:nth-child(1),
-.projects-grid > .card:nth-child(1),
-.differentiators-grid .card:nth-child(1),
-.certs-grid .card:nth-child(1),
-.blog-grid .card:nth-child(1),
-.speaking-grid .card:nth-child(1) {
-  transition-delay: 0s;
-}
-
-.services-grid .card:nth-child(2),
-.projects-grid > .card:nth-child(2),
-.differentiators-grid .card:nth-child(2),
-.certs-grid .card:nth-child(2),
-.blog-grid .card:nth-child(2),
-.speaking-grid .card:nth-child(2) {
-  transition-delay: 0.08s;
-}
-
-.services-grid .card:nth-child(3),
-.projects-grid > .card:nth-child(3),
-.differentiators-grid .card:nth-child(3),
-.certs-grid .card:nth-child(3),
-.blog-grid .card:nth-child(3),
-.speaking-grid .card:nth-child(3) {
-  transition-delay: 0.16s;
-}
-
-.services-grid .card:nth-child(4),
-.projects-grid > .card:nth-child(4),
-.differentiators-grid .card:nth-child(4),
-.blog-grid .card:nth-child(4) {
-  transition-delay: 0.24s;
-}
-
-.services-grid .card:nth-child(5),
-.projects-grid > .card:nth-child(5),
-.differentiators-grid .card:nth-child(5),
-.blog-grid .card:nth-child(5) {
-  transition-delay: 0.32s;
-}
-
-.services-grid .card:nth-child(6),
-.differentiators-grid .card:nth-child(6) {
-  transition-delay: 0.4s;
-}
-
-.services-grid .card:nth-child(n + 7) {
-  transition-delay: 0.48s;
-}
-
-.skills-left .skills-category-card:nth-child(1) {
-  transition-delay: 0s;
-}
-.skills-left .skills-category-card:nth-child(2) {
-  transition-delay: 0.08s;
-}
-.skills-left .skills-category-card:nth-child(3) {
-  transition-delay: 0.16s;
-}
-.skills-left .skills-category-card:nth-child(4) {
-  transition-delay: 0.24s;
-}
-.skills-left .skills-category-card:nth-child(5) {
-  transition-delay: 0.32s;
-}
-.skills-left .skills-category-card:nth-child(6) {
-  transition-delay: 0.4s;
 }
 
 /* ==========================================================================
@@ -2261,8 +2164,12 @@ body.lightbox-open {
   }
 
   .about-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-12);
+  }
+
+  .about-right {
+    position: static;
   }
 
   .services-grid {
@@ -2369,7 +2276,7 @@ body.lightbox-open {
   }
 
   .differentiators-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .services-grid {

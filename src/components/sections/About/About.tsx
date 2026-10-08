@@ -20,23 +20,20 @@ export function About() {
               href={about.record.verifyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ textDecoration: 'none', display: 'inline-block' }}
+              style={{ display: 'block', maxWidth: '68ch' }}
             >
               <div className="bio-record-badge">
                 <img
                   src={about.record.image}
                   alt="Guinness World Record"
-                  style={{
-                    width: 52,
-                    height: 52,
-                    borderRadius: 4,
-                    marginRight: 12,
-                    objectFit: 'contain',
-                  }}
+                  style={{ width: 52, height: 52, borderRadius: 4, objectFit: 'contain' }}
                 />
                 <div>
-                  <div className="record-title text-accent">{about.record.title}</div>
-                  <div className="record-desc">{about.record.context}</div>
+                  <div className="record-title">{about.record.title}</div>
+                  {/* Content still holds an unfilled [[NEEDS CLIENT INPUT]] placeholder; never render it. */}
+                  {!about.record.context.startsWith('[[') && (
+                    <div className="record-desc">{about.record.context}</div>
+                  )}
                 </div>
               </div>
             </a>
