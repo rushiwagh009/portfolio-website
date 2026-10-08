@@ -49,7 +49,7 @@ export function Skills() {
         decorative
       />
       <div className="container">
-        <SectionHeader label="04 // PROFICIENCIES" title="Technical Expertise" />
+        <SectionHeader label="PROFICIENCIES" title="Technical Expertise" />
 
         <div className="skills-grid">
           <div className="skills-left">

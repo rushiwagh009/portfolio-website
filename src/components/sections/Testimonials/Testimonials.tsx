@@ -11,7 +11,7 @@ export function Testimonials() {
   return (
     <section id="testimonials" className="section testimonials-section">
       <div className="container">
-        <SectionHeader label="09 // RECOMMENDATIONS" title="Client Reviews" />
+        <SectionHeader label="RECOMMENDATIONS" title="Client Reviews" />
 
         <div className="testimonials-grid">
           {testimonials.map((t) => (

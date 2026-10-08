@@ -6,7 +6,7 @@ export function Certifications() {
   return (
     <section id="certifications" className="section certifications-section bg-secondary">
       <div className="container">
-        <SectionHeader label="06 // CREDENTIALS" title="Certifications" />
+        <SectionHeader label="CREDENTIALS" title="Certifications" />
 
         <div className="certs-grid">
           {certifications.map((cert) => (

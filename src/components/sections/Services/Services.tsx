@@ -1,17 +1,12 @@
-import { lazy } from 'react'
 import { services } from '../../../content/services'
 import { SectionHeader } from '../../ui/SectionHeader'
 import { Card } from '../../ui/Card'
-import { SceneCanvasBoundary } from '../../../three/SceneCanvasBoundary'
-
-const ServicesScene = lazy(() => import('./ServicesScene'))
 
 export function Services() {
   return (
-    <section id="services" className="section services-section bg-secondary">
-      <SceneCanvasBoundary scene={ServicesScene} decorative />
+    <section id="services" className="section services-section">
       <div className="container">
-        <SectionHeader label="02 // CAPABILITIES" title="Consulting Services" />
+        <SectionHeader label="CAPABILITIES" title="Consulting Services" />
 
         <div className="services-grid">
           {services.map((service) => (

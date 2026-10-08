@@ -6,7 +6,7 @@ export function About() {
   return (
     <section id="about" className="section about-section">
       <div className="container">
-        <SectionHeader label="01 // IDENTITY" title="About Me" />
+        <SectionHeader label="IDENTITY" title="About Me" />
 
         <div className="about-grid">
           <div className="about-left">

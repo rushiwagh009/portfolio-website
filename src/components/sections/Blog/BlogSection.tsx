@@ -15,7 +15,7 @@ export function BlogSection() {
   return (
     <section id="blog" className="section blog-section">
       <div className="container">
-        <SectionHeader label="07 // INSIGHTS" title="Technical Blog" />
+        <SectionHeader label="INSIGHTS" title="Technical Blog" />
 
         <div className="blog-search-container">
           <input

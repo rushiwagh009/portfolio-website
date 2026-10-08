@@ -23,7 +23,7 @@ export const services: Service[] = [
       'Designing, deploying, and managing secure, scalable, highly available AWS environments for startups, SMEs, and growing businesses.',
     icon: (
       <svg {...iconProps}>
-        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
       </svg>
     ),
   },

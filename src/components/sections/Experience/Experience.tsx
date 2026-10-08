@@ -34,7 +34,7 @@ export function Experience() {
   return (
     <section id="experience" className="section experience-section">
       <div className="container">
-        <SectionHeader label="05 // HISTORY" title="Professional Experience" />
+        <SectionHeader label="HISTORY" title="Professional Experience" />
 
         <div className="timeline">
           <div className="timeline-line"></div>

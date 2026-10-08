@@ -9,7 +9,6 @@ export interface ProjectMetric {
 export interface CaseStudy {
   slug: string
   category: ProjectCategory
-  badgeEmoji: string
   badgeLabel: string
   badgeTone?: 'warning' | 'danger' | 'cyan' | 'primary'
   title: string
@@ -37,7 +36,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'eks-multi-az',
     category: 'kubernetes',
-    badgeEmoji: '⭐',
     badgeLabel: 'Hero Project',
     featured: true,
     title: 'Multi-AZ Kubernetes Platform for Microservices on AWS EKS',
@@ -74,12 +72,11 @@ export const caseStudies: CaseStudy[] = [
       { value: 'Automated', label: 'Backup / Recovery' },
     ],
     architectureImage: '/assets/3tier-arch.webp',
-    linkBadge: '🔒 GitHub Private',
+    linkBadge: 'GitHub Private',
   },
   {
     slug: 'finops-assessment',
     category: 'finops',
-    badgeEmoji: '💰',
     badgeLabel: 'FinOps',
     badgeTone: 'warning',
     title: 'AWS Cloud Cost Optimization & FinOps Assessment',
@@ -96,7 +93,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'devsecops-pipeline',
     category: 'devsecops',
-    badgeEmoji: '⚙️',
     badgeLabel: 'DevSecOps',
     badgeTone: 'danger',
     title: 'Automated DevSecOps Pipeline using Jenkins & ArgoCD',
@@ -133,7 +129,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'observability-platform',
     category: 'observability',
-    badgeEmoji: '📊',
     badgeLabel: 'Observability',
     badgeTone: 'cyan',
     title: 'Centralized Monitoring, Logging & Observability Platform',
@@ -150,7 +145,6 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'ctfd-platform',
     category: 'ctf',
-    badgeEmoji: '🚩',
     badgeLabel: 'CTF Platform',
     badgeTone: 'primary',
     title: 'Cloud-Native CTFd Platform Deployment & Operations',

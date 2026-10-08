@@ -6,7 +6,7 @@ export function Speaking() {
   return (
     <section id="speaking" className="section speaking-section bg-secondary">
       <div className="container">
-        <SectionHeader label="08 // ENGAGEMENTS" title="Speaking & Workshops" />
+        <SectionHeader label="ENGAGEMENTS" title="Speaking & Workshops" />
 
         <div className="speaking-grid">
           {speakingEvents.map((event) => (
