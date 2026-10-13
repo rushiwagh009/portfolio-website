@@ -1,4 +1,6 @@
+import { fileURLToPath, URL } from 'node:url'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import mdx from '@mdx-js/rollup'
 import remarkGfm from 'remark-gfm'
@@ -13,5 +15,9 @@ export default defineConfig({
       rehypePlugins: [[rehypePrettyCode, { theme: 'github-dark' }]],
     }),
     react(),
+    tailwindcss(),
   ],
+  resolve: {
+    alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
+  },
 })

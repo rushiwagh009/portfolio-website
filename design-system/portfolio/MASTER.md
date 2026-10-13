@@ -89,6 +89,12 @@ Banned: purple/pink, any gradient on text or surfaces, rgba cyan borders.
 - Duration 150–250ms, easing `cubic-bezier(0.16, 1, 0.3, 1)`. Properties: `opacity`, `transform: translateY(≤8px)` only.
 - Section reveal: once, 200ms, 8px translate. Never leave content invisible waiting on JS (content must be readable if the observer fails).
 - One animated element per viewport. No infinite loops (blobs, marquee, pulse, spin, blinking cursor, floating badges).
+- **Approved exception (2026-10-08, owner decision):** the hero technology-stack marquee. Real stack logos only
+  (`content/techStack.ts`), visible pause/play control, slows on hover, static wrapped row under reduced motion. No other loops.
+- **Approved exception (2026-10-08, owner decision):** the hero background video in a rounded frame (21st.dev hero-section-5),
+  with a token scrim for AA text contrast, offscreen pause, and the poster only under reduced motion (no pause button, by
+  owner request). The hero terminal types through the sample commands; it holds on hover, off-screen and under reduced motion.
+  The header floats transparently inside that frame at the top of the home page and is solid (section 8) once scrolled.
 - `prefers-reduced-motion: reduce` → all transitions/animations off; 3D diorama renders a static frame.
 - 3D: only the EKS diorama stays; lazy-mounted when in view.
 

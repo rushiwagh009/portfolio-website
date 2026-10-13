@@ -2,7 +2,6 @@ import { Header } from '../components/layout/Header'
 import { Footer } from '../components/layout/Footer'
 import { BackToTop } from '../components/layout/ScrollChrome'
 import { Hero } from '../components/sections/Hero/Hero'
-import { TechStrip } from '../components/sections/TechStrip'
 import { About } from '../components/sections/About/About'
 import { Services } from '../components/sections/Services/Services'
 import { CaseStudies } from '../components/sections/CaseStudies/CaseStudies'
@@ -28,7 +27,6 @@ export function Home() {
       <Header />
       <main id="main">
         <Hero />
-        <TechStrip />
         <About />
         <Services />
         <CaseStudies />

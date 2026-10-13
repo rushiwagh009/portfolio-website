@@ -1,0 +1,65 @@
+/* ==========================================================================
+   TAILWIND v4 — for 21st.dev / shadcn-style components (MASTER.md section 11)
+
+   - No preflight: global.css already owns the reset and element styles.
+   - Utilities are imported unlayered and after the legacy stylesheets, so a
+     utility class wins over an element selector in global.css (layered
+     utilities would always lose to unlayered legacy CSS).
+   - Scanning is opt-in per directory: legacy markup uses class names that
+     collide with Tailwind utilities (`container`, `hidden`, …). Add a
+     @source line when a file starts using utilities.
+   - Colours are restricted to the semantic tokens in tokens.css. `inline`
+     keeps the var() reference in each utility so body[data-theme='light']
+     re-themes them.
+   ========================================================================== */
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' source(none);
+
+@source '../components/ui';
+@source '../components/sections/Hero';
+@source '../components/layout/Header.tsx';
+/* Never generate utilities that shadow legacy global.css classes */
+@source not inline('container');
+
+@theme inline {
+  --color-*: initial;
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+}
+
+/* MASTER.md breakpoints: 480 · 768 · 1024 · 1440 */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 30rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 90rem;
+  --ease-token: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Type scale and radii are defined in tokens.css; `reference` registers the
+   utility names (text-display, rounded-md, …) without re-emitting the
+   variables, so tokens.css stays the only source of the values. */
+@theme reference {
+  --text-display: clamp(2.5rem, 5vw, 3.75rem);
+  --text-lead: 1.125rem;
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}

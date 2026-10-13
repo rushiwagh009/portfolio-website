@@ -5,6 +5,7 @@ import './styles/global.css'
 import './styles/three-overlay.css'
 import './styles/app.css'
 import './styles/blog.css'
+import './styles/tailwind.css'
 import App from './App.tsx'
 
 const container = document.getElementById('root')!

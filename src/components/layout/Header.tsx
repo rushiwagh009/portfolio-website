@@ -41,8 +41,35 @@ export function Header() {
     label: NAV_LABELS[id],
   }))
 
+  // Floats transparently over the hero's video frame at the top of the home
+  // page (21st.dev hero-section-5); solid as soon as content scrolls under it.
+  const [atTop, setAtTop] = useState(true)
+  useEffect(() => {
+    const onScroll = () => setAtTop(window.scrollY <= 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+  const transparent = isHome && atTop && !menuOpen
+
   useEffect(() => {
     document.body.classList.toggle('nav-open', menuOpen)
+  }, [menuOpen])
+
+  // Opening moves focus to the first link (the panel precedes the toggle in
+  // DOM order, so Tab alone would skip it); Escape closes the menu and returns
+  // focus to its toggle.
+  useEffect(() => {
+    if (!menuOpen) return
+    navRef.current?.querySelector('a')?.focus()
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false)
+        hamburgerRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
   }, [menuOpen])
 
   useEffect(() => {
@@ -62,7 +89,7 @@ export function Header() {
   }, [menuOpen])
 
   return (
-    <header className="header">
+    <header className={`header${transparent ? ' is-transparent' : ''}`}>
       <div className="nav-container">
         <a href={isHome ? '#hero' : '/#hero'} className="logo">
           RW<span className="text-accent">.</span>
@@ -125,17 +152,40 @@ export function Header() {
             )}
           </button>
 
+          {/* Menu/X morph adapted from 21st.dev hero-section-5's header */}
           <button
             ref={hamburgerRef}
-            className={`hamburger-btn${menuOpen ? ' active' : ''}`}
+            className="hamburger-btn group relative"
             id="hamburger-btn"
-            aria-label="Open Navigation Menu"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={menuOpen}
+            aria-controls="nav-menu"
             onClick={() => setMenuOpen((v) => !v)}
           >
-            <span className="bar"></span>
-            <span className="bar"></span>
-            <span className="bar"></span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+              className="absolute inset-0 m-auto size-6 transition-[transform,opacity] duration-200 ease-token group-aria-expanded:scale-0 group-aria-expanded:rotate-180 group-aria-expanded:opacity-0 motion-reduce:transition-none"
+            >
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+              className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 transition-[transform,opacity] duration-200 ease-token group-aria-expanded:scale-100 group-aria-expanded:rotate-0 group-aria-expanded:opacity-100 motion-reduce:transition-none"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
           </button>
         </div>
       </div>
